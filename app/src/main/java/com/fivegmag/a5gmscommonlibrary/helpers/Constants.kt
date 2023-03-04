@@ -1,4 +1,4 @@
-package com.example.a5gmscommonlibrary.helpers
+package com.fivegmag.a5gmscommonlibrary.helpers
 
 object StatusInformation {
     const val AVERAGE_THROUGHPUT = "AverageThroughput"

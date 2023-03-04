@@ -1,4 +1,4 @@
-package com.example.a5gmscommonlibrary.models
+package com.fivegmag.a5gmscommonlibrary.models
 
 data class ConsumptionReporting(
     val mediaPlayerEntry: String,
