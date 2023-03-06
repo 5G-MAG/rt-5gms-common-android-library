@@ -1,4 +1,4 @@
-package com.example.a5gmscommonlibrary
+package com.fivegmag.a5gmscommonlibrary
 
 import org.junit.Test
 
