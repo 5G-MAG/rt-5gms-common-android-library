@@ -27,6 +27,7 @@ object SessionHandlerMessageTypes {
     const val METRIC_REPORTING_MESSAGE = 7
     const val UPDATE_LOOKUP_TABLE = 8
     const val SET_M5_ENDPOINT = 9
+    const val START_PLAYBACK_BY_SERVICE_LIST_ENTRY_MESSAGE = 10
 }
 
 object SessionHandlerEvents {
@@ -34,4 +35,9 @@ object SessionHandlerEvents {
         const val SESSION_HANDLING_ACTIVATED = "SESSION_HANDLING_ACTIVATED"
         const val SESSION_HANDLING_STOPPED = "SESSION_HANDLING_STOPPED"
     }
+}
+
+object ContentTypes {
+    const val DASH = "application/dash+xml"
+    const val HLS = "application/vnd.apple.mpegurl"
 }

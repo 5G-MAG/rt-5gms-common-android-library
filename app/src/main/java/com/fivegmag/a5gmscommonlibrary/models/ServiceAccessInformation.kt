@@ -12,5 +12,5 @@ data class ServiceAccessInformation(
 
 @Parcelize
 data class StreamingAccess(
-    val mediaPlayerEntry: String
+    val entryPoints: ArrayList<EntryPoint>?
 ) : Parcelable

@@ -6,5 +6,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class M8Model(
     var m5Url: String,
-    var serviceAccessInformation: MutableList<ServiceAccessInformation>
+    var serviceList: ArrayList<ServiceListEntry>
 ) : Parcelable
