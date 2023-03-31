@@ -32,7 +32,8 @@ Call the following command in order to generate the `aar` bundles.
 ./gradlew assemble
 ````
 
-The `aar` bundle can be included in your project by specifying the path to the bundle.
+The resulting `aar` bundles can be found in `app/build/outputs/aar/` and can be included in your
+project by specifying the path to the bundle.
 
 ## Publish to local Maven Repository
 
