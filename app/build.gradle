@@ -5,9 +5,6 @@ plugins {
     id 'maven-publish'
 }
 
-def githubProperties = new Properties()
-githubProperties.load(new FileInputStream(rootProject.file("github.properties"))) //Set env variable GPR_USER & GPR_API_KEY if not adding a properties file
-
 android {
     namespace 'com.fivegmag.a5gmscommonlibrary'
     compileSdk 32
