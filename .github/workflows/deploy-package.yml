@@ -4,9 +4,6 @@ name: Publish package to GitHub Packages
 on:
   release:
     types: [created]
-  push:
-    branches:
-      - 'feature/githubPackage'
 jobs:
   publish:
     runs-on: ubuntu-latest
