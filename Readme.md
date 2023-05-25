@@ -1,12 +1,12 @@
-# 5G-MAG Reference Tools: 5GMS Common Library
+# 5G-MAG Reference Tools: 5GMSd Common Library
 
-This repository holds the 5GMS Common Library implementation of the 5G-MAG Reference Tools.
+This repository holds the 5GMSd Common Library implementation of the 5G-MAG Reference Tools.
 
 ## Introduction
 
-The 5GMS Common Library is an Android library that includes models and helper classes used within
-the different client-side Android applications such as the 5GMS Aware Application, 5GMS Media Stream
-Handler and the 5GMS Media Session Handler.
+The 5GMSd Common Library is an Android library that includes models and helper classes used within
+the different client-side Android applications such as the 5GMSd-Aware Application, 5GMSd Media Stream
+Handler and the 5GMSd Media Session Handler.
 
 ## Downloading
 
@@ -37,7 +37,7 @@ project by specifying the path to the bundle.
 
 ## Publish to local Maven Repository
 
-The preferred way to include the 5GMS Common Library is via a local or remote Maven repository (see
+The preferred way to include the 5GMSd Common Library is via a local or remote Maven repository (see
 below). To include the library from a local Maven repository we need to publish it locally first:
 
 ````
@@ -46,10 +46,10 @@ below). To include the library from a local Maven repository we need to publish 
 
 ## Include from local Maven Repository
 
-To include the 5GMS Common Library from a local Maven repository apply the following changes.
+To include the 5GMSd Common Library from a local Maven repository apply the following changes.
 
-Note: When using the other 5G-MAG client-side projects the changes below are already included. In
-this case the 5GMS Common Library only needs to be published to the local Maven repository (see
+Note: When using the other 5GMSd client-side projects the changes below are already included. In
+this case the 5GMSd Common Library only needs to be published to the local Maven repository (see
 above).
 
 #### 1. Add `mavenLocal()` to your project gradle file
@@ -62,7 +62,7 @@ dependencyResolutionManagement {
 }
 ````
 
-#### 2. Include the 5GMS Common Library in your module gradle file
+#### 2. Include the 5GMSd Common Library in your module gradle file
 
 ````
 dependencies {
