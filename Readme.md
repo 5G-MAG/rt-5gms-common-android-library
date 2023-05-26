@@ -1,4 +1,4 @@
-# 5G-MAG Reference Tools: 5GMSd Common Library
+# 5GMSd Common Android Library
 
 This repository holds the 5GMSd Common Library implementation of the 5G-MAG Reference Tools.
 
