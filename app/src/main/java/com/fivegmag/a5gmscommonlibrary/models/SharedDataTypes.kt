@@ -9,6 +9,9 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 
 package com.fivegmag.a5gmscommonlibrary.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 data class TypedLocation(
     val locationIdentifierType: String,
     val location: String
@@ -19,3 +22,9 @@ data class EndpointAddress(
     val ipv6Addr: String? = null,
     val portNumber: UInt
 )
+
+@Parcelize
+data class SchemeSupport(
+    val scheme: String,
+    val supported: Boolean
+) : Parcelable

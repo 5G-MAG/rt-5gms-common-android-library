@@ -32,11 +32,14 @@ object SessionHandlerMessageTypes {
     const val REGISTER_CLIENT = 4
     const val UNREGISTER_CLIENT = 5
     const val START_PLAYBACK_BY_MEDIA_PLAYER_ENTRY_MESSAGE = 6
-    const val SESSION_HANDLER_TRIGGERS_PLAYBACK = 6
-    const val METRIC_REPORTING_MESSAGE = 7
-    const val UPDATE_LOOKUP_TABLE = 8
-    const val SET_M5_ENDPOINT = 9
-    const val START_PLAYBACK_BY_SERVICE_LIST_ENTRY_MESSAGE = 10
+    const val SESSION_HANDLER_TRIGGERS_PLAYBACK = 7
+    const val METRIC_REPORTING_MESSAGE = 8
+    const val UPDATE_LOOKUP_TABLE = 9
+    const val SET_M5_ENDPOINT = 10
+    const val START_PLAYBACK_BY_SERVICE_LIST_ENTRY_MESSAGE = 11
+    const val GET_PLAYBACK_METRIC_CAPABILITIES = 12
+    const val GET_PLAYBACK_METRICS = 13
+    const val REPORT_PLAYBACK_METRICS_CAPABILITIES = 14
 }
 
 object SessionHandlerEvents {
@@ -49,4 +52,9 @@ object SessionHandlerEvents {
 object ContentTypes {
     const val DASH = "application/dash+xml"
     const val HLS = "application/vnd.apple.mpegurl"
+}
+
+object MetricReportingSchemes {
+    const val FIVE_G_MAG_EXOPLAYER_COMBINED_PLAYBACK_STATS = "urn:5gmag:exoplayer:combined"
+    const val THREE_GPP_DASH_METRIC_REPORTING = "urn:3GPP:ns:PSS:DASH:QM10"
 }
