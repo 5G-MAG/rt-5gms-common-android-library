@@ -31,8 +31,11 @@ data class ClientMetricReportingConfiguration(
     val serverAddresses: ArrayList<String>,
     val scheme: String,
     val dataNetworkName: String?,
-    val reportingInterval: Int?,
+    val reportingInterval: Long?,
     val samplePercentage: Float?,
     val urlFilters: ArrayList<String>?,
-    val metrics: ArrayList<String>
+    val metrics: ArrayList<String>,
+
+    // These are additional fields that we need for processing. They are not included in the spec and are populated during runtime
+    var isSchemeSupported: Boolean? = false
 ) : Parcelable
