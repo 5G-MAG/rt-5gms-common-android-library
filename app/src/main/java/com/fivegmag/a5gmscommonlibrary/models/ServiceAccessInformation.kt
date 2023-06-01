@@ -17,7 +17,7 @@ data class ServiceAccessInformation(
     val provisioningSessionId : String,
     val provisioningSessionType: String?,
     val streamingAccess: StreamingAccess,
-    val clientMetricsReportingConfigurations: ArrayList<ClientMetricReportingConfiguration>?
+    val clientMetricsReportingConfigurations: ArrayList<ClientMetricsReportingConfiguration>?
 ) : Parcelable
 
 @Parcelize
@@ -26,7 +26,7 @@ data class StreamingAccess(
 ) : Parcelable
 
 @Parcelize
-data class ClientMetricReportingConfiguration(
+data class ClientMetricsReportingConfiguration(
     val metricsReportingConfigurationId: String,
     val serverAddresses: ArrayList<String>,
     val scheme: String,
