@@ -5,10 +5,10 @@ import org.simpleframework.xml.ElementList
 import org.simpleframework.xml.Root
 
 data class RepresentationSwitchList(
-    @field:ElementList(name = "RepresentationSwitchList") val entries: ArrayList<RepresentationSwitch>
+    @field:ElementList(name = "RepSwitchList") val entries: ArrayList<RepresentationSwitch>
 )
 
-@Root(name = "RepresentationSwitch")
+@Root(name = "RepSwitchEvent")
 data class RepresentationSwitch(
     @field:Attribute(name = "t")
     @param:Attribute(name = "t")
