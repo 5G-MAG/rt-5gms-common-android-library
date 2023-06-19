@@ -5,11 +5,11 @@ import org.simpleframework.xml.Root
 import org.simpleframework.xml.Attribute
 import org.simpleframework.xml.ElementList
 
-@Root(name = "BufferLevel")
 data class BufferLevel(
-    @field:ElementList(name = "BufferLevelEntry") val entries: List<BufferLevelEntry>
+    @field:ElementList(name = "BufferLevel") val entries: List<BufferLevelEntry>
 )
 
+@Root(name="BufferLevelEntry")
 data class BufferLevelEntry(
     @field:Attribute(name = "t")
     @param:Attribute(name = "t")
