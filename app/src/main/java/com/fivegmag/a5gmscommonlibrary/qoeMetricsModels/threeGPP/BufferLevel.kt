@@ -6,7 +6,7 @@ import org.simpleframework.xml.Attribute
 import org.simpleframework.xml.ElementList
 
 data class BufferLevel(
-    @field:ElementList(name = "BufferLevel") val entries: List<BufferLevelEntry>
+    @field:ElementList(name = "BufferLevel") val entries: ArrayList<BufferLevelEntry>
 )
 
 @Root(name="BufferLevelEntry")
