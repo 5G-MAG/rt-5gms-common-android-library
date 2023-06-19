@@ -38,8 +38,9 @@ object SessionHandlerMessageTypes {
     const val SET_M5_ENDPOINT = 10
     const val START_PLAYBACK_BY_SERVICE_LIST_ENTRY_MESSAGE = 11
     const val GET_PLAYBACK_METRIC_CAPABILITIES = 12
-    const val GET_PLAYBACK_METRICS = 13
-    const val REPORT_PLAYBACK_METRICS_CAPABILITIES = 14
+    const val REPORT_PLAYBACK_METRICS_CAPABILITIES = 13
+    const val GET_PLAYBACK_METRICS = 14
+    const val REPORT_PLAYBACK_METRICS = 15
 }
 
 object SessionHandlerEvents {
