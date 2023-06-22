@@ -50,3 +50,8 @@ object ContentTypes {
     const val DASH = "application/dash+xml"
     const val HLS = "application/vnd.apple.mpegurl"
 }
+
+object UserAgentTokens {
+    const val FIVE_G_MS_REL_17_MEDIA_STREAM_HANDLER = "5GMSMediaStreamHandler/17"
+    const val FIVE_G_MS_REL_17_MEDIA_SESSION_HANDLER = "5GMSMediaSessionHandler/17"
+}
