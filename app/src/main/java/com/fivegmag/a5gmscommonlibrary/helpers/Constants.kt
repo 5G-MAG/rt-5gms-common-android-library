@@ -58,3 +58,11 @@ object MetricReportingSchemes {
     const val FIVE_G_MAG_EXOPLAYER_COMBINED_PLAYBACK_STATS = "urn:5gmag:exoplayer:combined"
     const val THREE_GPP_DASH_METRIC_REPORTING = "urn:3GPP:ns:PSS:DASH:QM10"
 }
+
+object XmlSchemaStrings {
+    object THREE_GPP_METADATA_2011_HSD_RECEPTION_REPORT {
+        const val SCHEMA = "urn:3gpp:metadata:2011:HSD:receptionreport"
+        const val LOCATION = "DASH-QoE-Report.xsd"
+        const val XSI = "http://www.w3.org/2001/XMLSchema-instance"
+    }
+}
