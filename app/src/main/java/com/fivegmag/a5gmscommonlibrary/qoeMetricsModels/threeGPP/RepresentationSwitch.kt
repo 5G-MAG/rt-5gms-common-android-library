@@ -1,28 +1,21 @@
 package com.fivegmag.a5gmscommonlibrary.qoeMetricsModels.threeGPP
 
-import org.simpleframework.xml.Attribute
-import org.simpleframework.xml.ElementList
-import org.simpleframework.xml.Root
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty
 
 data class RepresentationSwitchList(
-    @field:ElementList(name = "RepSwitchList") val entries: ArrayList<RepresentationSwitch>
+    @field:JacksonXmlProperty(localName = "RepSwitchEvent")
+    @field:JacksonXmlElementWrapper(useWrapping = false)
+    val entries: ArrayList<RepresentationSwitch>
 )
 
-@Root(name = "RepSwitchEvent")
 data class RepresentationSwitch(
-    @field:Attribute(name = "t")
-    @param:Attribute(name = "t")
-    val t: Long = 0,
-
-    @field:Attribute(name = "mt")
-    @param:Attribute(name = "mt")
-    val mt: Long = 0,
-
-    @field:Attribute(name = "to")
-    @param:Attribute(name = "to")
+    @field:JacksonXmlProperty(isAttribute = true)
+    val t: Long? = null,
+    @field:JacksonXmlProperty(isAttribute = true)
+    val mt: Long? = null,
+    @field:JacksonXmlProperty(isAttribute = true)
     val to: String = "",
-
-    @field:Attribute(name = "lto")
-    @param:Attribute(name = "lto")
-    val lto: Int? = -1
+    @field:JacksonXmlProperty(isAttribute = true)
+    val lto: Int? = null
 )
