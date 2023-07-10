@@ -20,7 +20,7 @@ data class BufferLevel(
 
 data class BufferLevelEntry(
     @field:JacksonXmlProperty(isAttribute = true)
-    val t: Long = 0,
+    val t: String? = null,
     @field:JacksonXmlProperty(isAttribute = true)
     val level: Int = 0
 )

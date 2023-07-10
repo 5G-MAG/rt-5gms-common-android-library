@@ -20,7 +20,7 @@ data class RepresentationSwitchList(
 
 data class RepresentationSwitch(
     @field:JacksonXmlProperty(isAttribute = true)
-    val t: Long? = null,
+    val t: String? = null,
     @field:JacksonXmlProperty(isAttribute = true)
     val mt: Long? = null,
     @field:JacksonXmlProperty(isAttribute = true)

@@ -30,9 +30,9 @@ data class HttpListEntry(
     @field:JacksonXmlProperty(isAttribute = true)
     val range: String = "",
     @field:JacksonXmlProperty(isAttribute = true)
-    val trequest: Long = -1,
+    val trequest: String = "",
     @field:JacksonXmlProperty(isAttribute = true)
-    val tresponse: Long = -1,
+    val tresponse: String = "",
     @field:JacksonXmlProperty(isAttribute = true)
     val responsecode: Int = -1,
     @field:JacksonXmlProperty(isAttribute = true)
@@ -43,7 +43,7 @@ data class HttpListEntry(
 )
 data class Trace(
     @field:JacksonXmlProperty(isAttribute = true)
-    val s: Long = -1,
+    val s: String = "",
     @field:JacksonXmlProperty(isAttribute = true)
     val d: Long = -1,
     @field:JacksonXmlProperty(isAttribute = true)
