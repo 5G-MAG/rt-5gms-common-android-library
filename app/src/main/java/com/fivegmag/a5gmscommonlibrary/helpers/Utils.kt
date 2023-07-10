@@ -1,6 +1,7 @@
 package com.fivegmag.a5gmscommonlibrary.helpers
 
 import java.text.SimpleDateFormat
+import java.time.Duration
 import java.util.Date
 import java.util.TimeZone
 
@@ -26,5 +27,21 @@ class Utils {
         val currentTimestamp = getCurrentTimestamp()
 
         return convertTimestampToXsDateTime(currentTimestamp)
+    }
+
+    fun millisecondsToISO8601(milliseconds: Long): String? {
+        // Create a Duration object from milliseconds
+        val duration: Duration = Duration.ofMillis(milliseconds)
+
+        // Extract the components from the duration
+        val years: Long = duration.toDays() / 365
+        val days: Long = duration.toDays() % 365
+        val hours: Long = duration.toHours() % 24
+        val minutes: Long = duration.toMinutes() % 60
+        val seconds: Long = duration.seconds % 60
+
+        // Construct the ISO 8601 period string
+        return "P" + years + "Y" + days + "D" +
+                "T" + hours + "H" + minutes + "M" + seconds + "S"
     }
 }
