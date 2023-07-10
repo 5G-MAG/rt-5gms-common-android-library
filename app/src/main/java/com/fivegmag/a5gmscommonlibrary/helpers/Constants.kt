@@ -64,5 +64,6 @@ object XmlSchemaStrings {
         const val SCHEMA = "urn:3gpp:metadata:2011:HSD:receptionreport"
         const val LOCATION = "DASH-QoE-Report.xsd"
         const val XSI = "http://www.w3.org/2001/XMLSchema-instance"
+        const val SV = "urn:3gpp:metadata:2016:PSS:schemaVersion"
     }
 }

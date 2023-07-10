@@ -33,6 +33,9 @@ data class ReceptionReport(
 
     @field:JacksonXmlProperty(isAttribute = true, localName = "xmlns:xsi")
     var xsi: String? = null,
+
+    @field:JacksonXmlProperty(isAttribute = true, localName = "xmlns:sv")
+    var sv: String? = null,
 )
 
 

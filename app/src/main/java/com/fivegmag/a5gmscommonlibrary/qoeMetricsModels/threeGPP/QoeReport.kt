@@ -27,13 +27,13 @@ data class QoeReport(
     var bufferLevel: ArrayList<BufferLevel>? = null,
 
     @field:JacksonXmlProperty(isAttribute = true, localName = "periodID")
-    val periodId: Int = -1,
+    var periodId: String = "",
 
     @field:JacksonXmlProperty(isAttribute = true)
-    val reportTime: Int = -1,
+    var reportTime: String = "",
 
     @field:JacksonXmlProperty(isAttribute = true)
-    val reportPeriod: Int = -1,
+    var reportPeriod: Int = -1,
 )
 
 
