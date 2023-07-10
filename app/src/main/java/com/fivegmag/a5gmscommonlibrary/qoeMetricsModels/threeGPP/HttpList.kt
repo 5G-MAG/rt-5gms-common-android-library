@@ -20,7 +20,7 @@ data class HttpList(
 
 data class HttpListEntry(
     @field:JacksonXmlProperty(isAttribute = true)
-    val tcpid: Int = -1,
+    val tcpid: Int? = null,
     @field:JacksonXmlProperty(isAttribute = true)
     val type: String = HttpListEntryType.OTHER.value,
     @field:JacksonXmlProperty(isAttribute = true)
@@ -34,9 +34,9 @@ data class HttpListEntry(
     @field:JacksonXmlProperty(isAttribute = true)
     val tresponse: String = "",
     @field:JacksonXmlProperty(isAttribute = true)
-    val responsecode: Int = -1,
+    val responsecode: Int = 0,
     @field:JacksonXmlProperty(isAttribute = true)
-    val interval: Int = -1,
+    val interval: Int = 0,
     @field:JacksonXmlProperty(localName = "Trace")
     @field:JacksonXmlElementWrapper(useWrapping = false)
     val traces: ArrayList<Trace>
@@ -52,12 +52,12 @@ data class Trace(
 
 enum class HttpListEntryType(val value : String) {
     MPD("MPD"),
-    XLINK_EXPANSION("Xlink expansion"),
-    INITIALIZATION_SEGMENT("Initialization Segment"),
-    INDEX_SEGMENT("Index Segment"),
-    MEDIA_SEGMENT("Media Segment"),
-    BITSTREAM_SWITCHING_SEGMENT("Bitstream Switching Segment"),
-    REMOTE_XLINK_ELEMENT("Remote xlink element"),
-    MPD_PATCH("MPD patch"),
+    XLINK_EXPANSION("XLinkExpansion"),
+    INITIALIZATION_SEGMENT("InitializationSegment"),
+    INDEX_SEGMENT("IndexSegment"),
+    MEDIA_SEGMENT("MediaSegment"),
+    BITSTREAM_SWITCHING_SEGMENT("BitstreamSwitchingSegment"),
+    REMOTE_XLINK_ELEMENT("RemoteXLinkElement"),
+    MPD_PATCH("MPDPatch"),
     OTHER("other")
 }
