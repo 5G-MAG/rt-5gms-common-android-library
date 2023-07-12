@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PlaybackMetricsRequest(
-    var schema : String = "",
-    var reportPeriod: Long = 0
+    var scheme : String = "",
+    var reportPeriod: Long? = 0,
+    var metrics : ArrayList<String>? = ArrayList()
 ) : Parcelable

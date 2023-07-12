@@ -3,6 +3,7 @@ package com.fivegmag.a5gmscommonlibrary.helpers
 import java.text.SimpleDateFormat
 import java.time.Duration
 import java.util.Date
+import java.util.Random
 import java.util.TimeZone
 
 class Utils {
@@ -43,5 +44,10 @@ class Utils {
         // Construct the ISO 8601 period string
         return "P" + years + "Y" + days + "D" +
                 "T" + hours + "H" + minutes + "M" + seconds + "S"
+    }
+
+    fun generateRandomFloat(): Float {
+        val random = Random()
+        return random.nextFloat() * 100.0f
     }
 }

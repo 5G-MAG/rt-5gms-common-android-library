@@ -59,6 +59,12 @@ object MetricReportingSchemes {
     const val THREE_GPP_DASH_METRIC_REPORTING = "urn:3GPP:ns:PSS:DASH:QM10"
 }
 
+object Metrics {
+    const val BUFFER_LEVEL = "BufferLevel"
+    const val HTTP_LIST = "HTTPList"
+    const val REP_SWITCH_LIST = "RepSwitchList"
+}
+
 object XmlSchemaStrings {
     object THREE_GPP_METADATA_2011_HSD_RECEPTION_REPORT {
         const val SCHEMA = "urn:3gpp:metadata:2011:HSD:receptionreport"

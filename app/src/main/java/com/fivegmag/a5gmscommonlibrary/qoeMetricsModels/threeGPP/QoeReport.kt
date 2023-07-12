@@ -33,7 +33,7 @@ data class QoeReport(
     var reportTime: String = "",
 
     @field:JacksonXmlProperty(isAttribute = true)
-    var reportPeriod: Int = -1,
+    var reportPeriod: Int? = 0,
 )
 
 

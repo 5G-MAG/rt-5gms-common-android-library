@@ -31,8 +31,8 @@ data class ClientMetricsReportingConfiguration(
     val serverAddresses: ArrayList<String>,
     val scheme: String,
     val dataNetworkName: String?,
-    val reportingInterval: Long?,
-    val samplePercentage: Float?,
+    val reportingInterval: Long? = null,
+    val samplePercentage: Float? = null,
     val urlFilters: ArrayList<String>?,
     val metrics: ArrayList<String>,
 
