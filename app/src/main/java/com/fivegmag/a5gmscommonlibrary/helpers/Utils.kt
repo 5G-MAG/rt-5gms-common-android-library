@@ -50,4 +50,12 @@ class Utils {
         val random = Random()
         return random.nextFloat() * 100.0f
     }
+
+    fun addTrailingSlashIfNeeded(input: String): String {
+        return if (!input.endsWith("/")) {
+            "$input/"
+        } else {
+            input
+        }
+    }
 }
