@@ -54,6 +54,11 @@ object ContentTypes {
     const val HLS = "application/vnd.apple.mpegurl"
 }
 
+object UserAgentTokens {
+    const val FIVE_G_MS_REL_17_MEDIA_STREAM_HANDLER = "5GMSMediaStreamHandler/17"
+    const val FIVE_G_MS_REL_17_MEDIA_SESSION_HANDLER = "5GMSMediaSessionHandler/17"
+}
+
 object MetricReportingSchemes {
     const val FIVE_G_MAG_EXOPLAYER_COMBINED_PLAYBACK_STATS = "urn:5gmag:exoplayer:combined"
     const val THREE_GPP_DASH_METRIC_REPORTING = "urn:3GPP:ns:PSS:DASH:QM10"
