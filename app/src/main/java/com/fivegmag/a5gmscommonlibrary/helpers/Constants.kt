@@ -68,6 +68,7 @@ object Metrics {
     const val BUFFER_LEVEL = "BufferLevel"
     const val HTTP_LIST = "HTTPList"
     const val REP_SWITCH_LIST = "RepSwitchList"
+    const val MPD_INFORMATION = "MPDInformation"
 }
 
 object XmlSchemaStrings {

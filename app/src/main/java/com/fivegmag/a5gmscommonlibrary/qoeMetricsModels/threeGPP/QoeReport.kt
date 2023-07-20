@@ -26,6 +26,10 @@ data class QoeReport(
     @field:JacksonXmlProperty(localName = "BufferLevel")
     var bufferLevel: ArrayList<BufferLevel>? = null,
 
+    @field:JacksonXmlElementWrapper(localName = "QoeMetric")
+    @field:JacksonXmlProperty(localName = "MPDInformation")
+    var mpdInformation: ArrayList<MpdInformation>? = null,
+
     @field:JacksonXmlProperty(isAttribute = true, localName = "periodID")
     var periodId: String = "",
 
