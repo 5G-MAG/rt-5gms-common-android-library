@@ -13,7 +13,7 @@ android {
         minSdk 29
         targetSdk 32
         versionCode 1
-        versionName "1.0.0"
+        versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,7 +38,7 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.fivegmag'
             artifactId = 'a5gmscommonlibrary'
-            version = '1.0.0'
+            version = '1.0.1'
 
             afterEvaluate {
                 from components.release
