@@ -29,7 +29,7 @@ data class StreamingAccess(
 data class ClientConsumptionReportingConfiguration(
     val serverAddresses : Array<String>,
     val locationReporting: Boolean,
-    val samplePercentage: UInt,
+    val samplePercentage: Float,
     val reportingInterval: UInt,
     val accessReporting: Boolean
 ) : Parcelable
