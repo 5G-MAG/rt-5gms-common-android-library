@@ -7,24 +7,29 @@ program. If this file is missing then the license can be retrieved from
 https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 */
 
-package com.fivegmag.a5gmscommonlibrary.models
+package com.fivegmag.a5gmscommonlibrary.consumptionReporting
 
 import android.os.Parcelable
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fivegmag.a5gmscommonlibrary.models.EndpointAddress
+import com.fivegmag.a5gmscommonlibrary.models.TypedLocation
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class ConsumptionReporting(
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class ConsumptionReport(
     val mediaPlayerEntry: String,
     val reportingClientId: String,
     val consumptionReportingUnits: ArrayList<ConsumptionReportingUnit>
 ) : Parcelable
 
 @Parcelize
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class ConsumptionReportingUnit(
     val mediaConsumed: String,
     val mediaEndpointAddress: EndpointAddress? = null,
     val startTime: String,
-    val duration : Int,
-    val locations: Array<TypedLocation>? = null
+    var duration : Int,
+    val locations: ArrayList<TypedLocation>? = null
 ) : Parcelable
 

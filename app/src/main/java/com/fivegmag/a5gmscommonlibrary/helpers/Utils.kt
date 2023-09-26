@@ -6,6 +6,9 @@ import java.util.Date
 import java.util.Random
 import java.util.TimeZone
 import okhttp3.Headers
+import java.time.Instant
+import java.util.Locale
+import java.util.UUID
 
 class Utils {
 
@@ -23,6 +26,23 @@ class Utils {
 
         // Format the date to xs:datetime string
         return dateFormat.format(date)
+    }
+
+    fun generateUUID(): String {
+        val uuid = UUID.randomUUID()
+        return uuid.toString()
+    }
+
+    fun formatDateToOpenAPIFormat(date: Date): String {
+        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+        return format.format(date)
+    }
+
+    fun calculateTimestampDifferenceInSeconds(timestamp1: String, timestamp2: String): Long {
+        val instant1 = Instant.parse(timestamp1)
+        val instant2 = Instant.parse(timestamp2)
+        val duration = Duration.between(instant1, instant2)
+        return duration.seconds
     }
 
     fun getCurrentXsDateTime(): String {
