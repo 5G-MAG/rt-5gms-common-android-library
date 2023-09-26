@@ -16,7 +16,7 @@ import kotlinx.parcelize.Parcelize
 data class ConsumptionReporting(
     val mediaPlayerEntry: String,
     val reportingClientId: String,
-    val consumptionReportingUnits: Array<ConsumptionReportingUnit>
+    val consumptionReportingUnits: ArrayList<ConsumptionReportingUnit>
 ) : Parcelable
 
 @Parcelize
