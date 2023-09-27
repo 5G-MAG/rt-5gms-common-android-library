@@ -10,6 +10,7 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 package com.fivegmag.a5gmscommonlibrary.consumptionReporting
 
 import android.os.Parcelable
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fivegmag.a5gmscommonlibrary.models.EndpointAddress
 import com.fivegmag.a5gmscommonlibrary.models.TypedLocation
@@ -29,7 +30,11 @@ data class ConsumptionReportingUnit(
     val mediaConsumed: String,
     val mediaEndpointAddress: EndpointAddress? = null,
     val startTime: String,
-    var duration : Int,
-    val locations: ArrayList<TypedLocation>? = null
+    var duration: Int,
+    val locations: ArrayList<TypedLocation>? = null,
+    //@JsonIgnore
+    var mimeType: String? = null,
+    //@JsonIgnore
+    var finished: Boolean = false
 ) : Parcelable
 
