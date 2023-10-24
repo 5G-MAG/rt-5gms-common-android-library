@@ -6,6 +6,10 @@ import java.util.Date
 import java.util.Random
 import java.util.TimeZone
 import okhttp3.Headers
+import java.net.NetworkInterface
+import java.time.Instant
+import java.util.Locale
+import java.util.UUID
 
 class Utils {
 
@@ -23,6 +27,23 @@ class Utils {
 
         // Format the date to xs:datetime string
         return dateFormat.format(date)
+    }
+
+    fun generateUUID(): String {
+        val uuid = UUID.randomUUID()
+        return uuid.toString()
+    }
+
+    fun formatDateToOpenAPIFormat(date: Date): String {
+        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+        return format.format(date)
+    }
+
+    fun calculateTimestampDifferenceInSeconds(timestamp1: String, timestamp2: String): Long {
+        val instant1 = Instant.parse(timestamp1)
+        val instant2 = Instant.parse(timestamp2)
+        val duration = Duration.between(instant1, instant2)
+        return duration.seconds
     }
 
     fun getCurrentXsDateTime(): String {
@@ -80,4 +101,25 @@ class Utils {
     private fun hasHeaderChanged(headerA: String?, headerB: String?): Boolean {
         return headerA == null || headerB == null || headerA != headerB
     }
+
+    fun getIpAddress(ipVer: Int): String? {
+        val interfaces = NetworkInterface.getNetworkInterfaces()
+        while (interfaces.hasMoreElements()) {
+            val networkInterface = interfaces.nextElement()
+            val addresses = networkInterface.inetAddresses
+            while (addresses.hasMoreElements()) {
+                val address = addresses.nextElement()
+                if (!address.isLoopbackAddress && address.isSiteLocalAddress) {
+                    if ((ipVer == 4 && address.hostAddress.contains("."))||
+                        (ipVer == 6 && address.hostAddress.contains(":"))
+                    ){
+                        return address.hostAddress.toString()
+                    }
+                }
+            }
+        }
+
+        return null
+    }
+
 }

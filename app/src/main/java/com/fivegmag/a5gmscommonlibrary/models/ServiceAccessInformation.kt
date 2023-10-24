@@ -27,9 +27,9 @@ data class StreamingAccess(
 
 @Parcelize
 data class ClientConsumptionReportingConfiguration(
-    val serverAddresses : Array<String>,
+    val serverAddresses : ArrayList<String>,
     val locationReporting: Boolean,
     val samplePercentage: Float,
-    val reportingInterval: UInt,
+    val reportingInterval: Int? = null,
     val accessReporting: Boolean
 ) : Parcelable

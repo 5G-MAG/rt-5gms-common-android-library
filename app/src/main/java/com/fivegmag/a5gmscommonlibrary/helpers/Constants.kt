@@ -37,7 +37,8 @@ object SessionHandlerMessageTypes {
     const val UPDATE_LOOKUP_TABLE = 8
     const val SET_M5_ENDPOINT = 9
     const val START_PLAYBACK_BY_SERVICE_LIST_ENTRY_MESSAGE = 10
-    const val CONSUMPTION_REPORTING_MESSAGE = 11
+    const val GET_CONSUMPTION_REPORT = 11
+    const val CONSUMPTION_REPORT = 12
 }
 
 object SessionHandlerEvents {
