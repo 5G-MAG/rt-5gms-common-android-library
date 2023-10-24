@@ -28,10 +28,10 @@ data class ConsumptionReport(
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class ConsumptionReportingUnit(
     val mediaConsumed: String,
-    val mediaEndpointAddress: EndpointAddress? = null,
+    var mediaEndpointAddress: EndpointAddress? = null,
     val startTime: String,
     var duration: Int,
-    val locations: ArrayList<TypedLocation>? = null,
+    var locations: ArrayList<TypedLocation>? = ArrayList(),
     //@JsonIgnore
     var mimeType: String? = null,
     //@JsonIgnore

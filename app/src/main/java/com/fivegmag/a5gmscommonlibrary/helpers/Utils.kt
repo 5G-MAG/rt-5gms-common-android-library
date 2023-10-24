@@ -6,6 +6,7 @@ import java.util.Date
 import java.util.Random
 import java.util.TimeZone
 import okhttp3.Headers
+import java.net.NetworkInterface
 import java.time.Instant
 import java.util.Locale
 import java.util.UUID
@@ -100,4 +101,25 @@ class Utils {
     private fun hasHeaderChanged(headerA: String?, headerB: String?): Boolean {
         return headerA == null || headerB == null || headerA != headerB
     }
+
+    fun getIpAddress(ipVer: Int): String? {
+        val interfaces = NetworkInterface.getNetworkInterfaces()
+        while (interfaces.hasMoreElements()) {
+            val networkInterface = interfaces.nextElement()
+            val addresses = networkInterface.inetAddresses
+            while (addresses.hasMoreElements()) {
+                val address = addresses.nextElement()
+                if (!address.isLoopbackAddress && address.isSiteLocalAddress) {
+                    if ((ipVer == 4 && address.hostAddress.contains("."))||
+                        (ipVer == 6 && address.hostAddress.contains(":"))
+                    ){
+                        return address.hostAddress.toString()
+                    }
+                }
+            }
+        }
+
+        return null
+    }
+
 }

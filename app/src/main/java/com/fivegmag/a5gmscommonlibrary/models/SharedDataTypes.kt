@@ -14,13 +14,21 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class TypedLocation(
-    val locationIdentifierType: String,
+    val locationIdentifierType: CellIdentifierType,
     val location: String
 ) : Parcelable
 
 @Parcelize
 data class EndpointAddress(
+    val domainName: String? = null,
     val ipv4Addr: String? = null,
     val ipv6Addr: String? = null,
     val portNumber: UInt
 ) : Parcelable
+
+@Parcelize
+enum class CellIdentifierType : Parcelable {
+    CGI,
+    ECGI,
+    NCGI
+}
