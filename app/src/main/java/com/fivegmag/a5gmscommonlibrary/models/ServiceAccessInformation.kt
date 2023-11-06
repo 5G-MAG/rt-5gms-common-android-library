@@ -17,7 +17,7 @@ data class ServiceAccessInformation(
     val provisioningSessionId : String,
     val provisioningSessionType: String?,
     val streamingAccess: StreamingAccess,
-    var clientConsumptionReportingConfiguration: ClientConsumptionReportingConfiguration
+    var clientConsumptionReportingConfiguration: ClientConsumptionReportingConfiguration?
 ) : Parcelable
 
 @Parcelize
