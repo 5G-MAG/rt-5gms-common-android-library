@@ -1,5 +1,6 @@
 package com.fivegmag.a5gmscommonlibrary.eventbus
 
+import android.telephony.CellInfo
 import androidx.media3.exoplayer.analytics.AnalyticsListener
 import androidx.media3.exoplayer.source.MediaLoadData
 
@@ -11,4 +12,8 @@ class DownstreamFormatChangedEvent(
 class PlaybackStateChangedEvent(
     val eventTime: AnalyticsListener.EventTime,
     val playbackState: String
+)
+
+class CellInfoUpdatedEvent(
+    val cellInfoList: MutableList<CellInfo>
 )
