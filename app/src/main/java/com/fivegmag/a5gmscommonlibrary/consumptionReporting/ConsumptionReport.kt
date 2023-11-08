@@ -32,9 +32,9 @@ data class ConsumptionReportingUnit(
     val startTime: String,
     var duration: Int,
     var locations: ArrayList<TypedLocation>? = ArrayList(),
-    //@JsonIgnore
+    @JsonIgnore
     var mimeType: String? = null,
-    //@JsonIgnore
+    @JsonIgnore
     var finished: Boolean = false
 ) : Parcelable
 
