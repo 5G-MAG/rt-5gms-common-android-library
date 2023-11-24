@@ -10,6 +10,7 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 package com.fivegmag.a5gmscommonlibrary.consumptionReporting
 
 import android.os.Parcelable
+import com.fasterxml.jackson.annotation.JsonFilter
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fivegmag.a5gmscommonlibrary.models.EndpointAddress
@@ -26,6 +27,7 @@ data class ConsumptionReport(
 
 @Parcelize
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonFilter("consumptionReportingUnitFilter")
 data class ConsumptionReportingUnit(
     val mediaConsumed: String,
     var mediaEndpointAddress: EndpointAddress? = null,
