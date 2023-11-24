@@ -90,7 +90,7 @@ class Utils {
         }
         val headersToValidate = arrayOf("last-modified", "etag")
 
-        return headersToValidate.all { header ->
+        return headersToValidate.any { header ->
             hasHeaderChanged(
                 headers.get(header),
                 previousResponseHeaders.get(header)

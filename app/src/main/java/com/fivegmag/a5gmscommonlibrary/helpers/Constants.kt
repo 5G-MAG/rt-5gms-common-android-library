@@ -40,7 +40,6 @@ object SessionHandlerMessageTypes {
     const val GET_CONSUMPTION_REPORT = 11
     const val CONSUMPTION_REPORT = 12
     const val UPDATE_PLAYBACK_CONSUMPTION_REPORTING_CONFIGURATION = 13
-
 }
 
 object SessionHandlerEvents {
