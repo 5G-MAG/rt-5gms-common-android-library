@@ -30,7 +30,8 @@ data class ConsumptionReport(
 @JsonFilter("consumptionReportingUnitFilter")
 data class ConsumptionReportingUnit(
     val mediaConsumed: String,
-    var mediaEndpointAddress: EndpointAddress? = null,
+    var clientEndpointAddress: EndpointAddress? = null,
+    var serverEndpointAddress: EndpointAddress? = null,
     val startTime: String,
     var duration: Int,
     var locations: ArrayList<TypedLocation>? = ArrayList(),

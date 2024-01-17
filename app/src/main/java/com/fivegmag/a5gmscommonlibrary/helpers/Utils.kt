@@ -1,12 +1,17 @@
 package com.fivegmag.a5gmscommonlibrary.helpers
 
+import com.fivegmag.a5gmscommonlibrary.models.EndpointAddress
 import java.text.SimpleDateFormat
 import java.time.Duration
 import java.util.Date
 import java.util.Random
 import java.util.TimeZone
 import okhttp3.Headers
+import java.net.Inet6Address
+import java.net.InetAddress
 import java.net.NetworkInterface
+import java.net.URI
+import java.net.URL
 import java.time.Instant
 import java.util.Locale
 import java.util.UUID
@@ -110,9 +115,9 @@ class Utils {
             while (addresses.hasMoreElements()) {
                 val address = addresses.nextElement()
                 if (!address.isLoopbackAddress && address.isSiteLocalAddress) {
-                    if ((ipVer == 4 && address.hostAddress.contains("."))||
+                    if ((ipVer == 4 && address.hostAddress.contains(".")) ||
                         (ipVer == 6 && address.hostAddress.contains(":"))
-                    ){
+                    ) {
                         return address.hostAddress.toString()
                     }
                 }
@@ -120,6 +125,68 @@ class Utils {
         }
 
         return null
+    }
+
+    fun getDomainName(url: String): String? {
+        return try {
+            val uri = URI(url)
+            val domain = uri.host
+            domain?.removePrefix("www.")
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    fun getPort(url: String): Int? {
+        try {
+            val url = URL(url)
+            val port = url.port
+            if (port == -1) {
+                return url.defaultPort
+            }
+
+            return port
+        } catch (e: Exception) {
+            return null
+        }
+    }
+
+    /**
+     * Network operations are not allowed on the main thread.
+     * Perform the IP lookup in a different thread and then call a callback function
+     *
+     * @param requestUrl
+     * @param callback
+     */
+    fun getEndpointAddressByRequestUrl(
+        requestUrl: String,
+        callback: (EndpointAddress?) -> Unit
+    ) {
+        Thread {
+            try {
+                val domainName = getDomainName(requestUrl)
+                val port = getPort(requestUrl)
+                var ipv4Addr: String? = null
+                var ipv6Addr: String? = null
+                val inetAddresses = InetAddress.getAllByName(domainName)
+                for (inetAddress in inetAddresses) {
+                    val ipAddress = inetAddress.hostAddress
+                    if (inetAddress is Inet6Address) {
+                        ipv6Addr = ipAddress
+                    } else {
+                        ipv4Addr = ipAddress
+                    }
+                }
+                if (port != null) {
+                    callback(EndpointAddress(domainName, ipv4Addr, ipv6Addr, port))
+                }
+
+                callback(null)
+
+            } catch (e: Exception) {
+                callback(null)
+            }
+        }.start()
     }
 
 }
