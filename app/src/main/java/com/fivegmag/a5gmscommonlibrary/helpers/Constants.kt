@@ -58,3 +58,9 @@ object UserAgentTokens {
     const val FIVE_G_MS_REL_17_MEDIA_STREAM_HANDLER = "5GMSMediaStreamHandler/17"
     const val FIVE_G_MS_REL_17_MEDIA_SESSION_HANDLER = "5GMSMediaSessionHandler/17"
 }
+
+object HostInfoTypes {
+    const val IP_V4 = "ipv4"
+    const val IP_V6 = "ipv6"
+    const val DOMAIN_NAME = "domain_name"
+}
