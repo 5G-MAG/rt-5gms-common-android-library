@@ -1,16 +1,14 @@
 package com.fivegmag.a5gmscommonlibrary.helpers
 
 import com.fivegmag.a5gmscommonlibrary.models.EndpointAddress
+import com.fivegmag.a5gmscommonlibrary.models.HostInfo
 import java.text.SimpleDateFormat
 import java.time.Duration
 import java.util.Date
 import java.util.Random
 import java.util.TimeZone
 import okhttp3.Headers
-import java.net.Inet6Address
-import java.net.InetAddress
 import java.net.NetworkInterface
-import java.net.URI
 import java.net.URL
 import java.time.Instant
 import java.util.Locale
@@ -127,13 +125,30 @@ class Utils {
         return null
     }
 
-    fun getDomainName(url: String): String? {
-        return try {
-            val uri = URI(url)
-            val domain = uri.host
-            domain?.removePrefix("www.")
+    fun getHostInfo(urlString: String): HostInfo? {
+        try {
+            val url = URL(urlString)
+            val host = url.host
+
+            // Check if it's a valid IPv4 address
+            val ipv4Regex = """^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$""".toRegex()
+            if (ipv4Regex.matches(host)) {
+                return HostInfo(HostInfoTypes.IP_V4, host)
+            }
+
+            // Check if it's a valid IPv6 address
+            val ipv6Regex = """^\[([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}\]$""".toRegex()
+            if (ipv6Regex.matches(host)) {
+                return HostInfo(HostInfoTypes.IP_V6, host)
+            }
+
+            // Remove leading "www." from the domain
+            val domain = if (host.startsWith("www.")) host.substring(4) else host
+
+            // Assume it's a domain name
+            return HostInfo(HostInfoTypes.DOMAIN_NAME, domain)
         } catch (e: Exception) {
-            null
+            return null
         }
     }
 
@@ -151,42 +166,28 @@ class Utils {
         }
     }
 
-    /**
-     * Network operations are not allowed on the main thread.
-     * Perform the IP lookup in a different thread and then call a callback function
-     *
-     * @param requestUrl
-     * @param callback
-     */
     fun getEndpointAddressByRequestUrl(
-        requestUrl: String,
-        callback: (EndpointAddress?) -> Unit
-    ) {
-        Thread {
-            try {
-                val domainName = getDomainName(requestUrl)
-                val port = getPort(requestUrl)
-                var ipv4Addr: String? = null
-                var ipv6Addr: String? = null
-                val inetAddresses = InetAddress.getAllByName(domainName)
-                for (inetAddress in inetAddresses) {
-                    val ipAddress = inetAddress.hostAddress
-                    if (inetAddress is Inet6Address) {
-                        ipv6Addr = ipAddress
-                    } else {
-                        ipv4Addr = ipAddress
-                    }
-                }
-                if (port != null) {
-                    callback(EndpointAddress(domainName, ipv4Addr, ipv6Addr, port))
-                }
+        requestUrl: String
+    ): EndpointAddress? {
+        try {
+            val hostInfo = getHostInfo(requestUrl)
+            val port = getPort(requestUrl)
 
-                callback(null)
-
-            } catch (e: Exception) {
-                callback(null)
+            if (hostInfo != null && port != null) {
+                return when (hostInfo.type) {
+                    HostInfoTypes.IP_V4 -> EndpointAddress(null, hostInfo.host, null, port)
+                    HostInfoTypes.IP_V6 -> EndpointAddress(null, null, hostInfo.host, port)
+                    HostInfoTypes.DOMAIN_NAME -> EndpointAddress(hostInfo.host, null, null, port)
+                    else -> null
+                }
             }
-        }.start()
+
+            return null
+
+        } catch (e: Exception) {
+            return null
+        }
+
     }
 
 }

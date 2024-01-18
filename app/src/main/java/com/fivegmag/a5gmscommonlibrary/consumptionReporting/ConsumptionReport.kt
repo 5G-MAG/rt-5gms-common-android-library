@@ -40,4 +40,3 @@ data class ConsumptionReportingUnit(
     @JsonIgnore
     var finished: Boolean = false
 ) : Parcelable
-
