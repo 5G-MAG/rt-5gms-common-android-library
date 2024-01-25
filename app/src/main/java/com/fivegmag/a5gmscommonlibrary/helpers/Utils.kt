@@ -1,11 +1,18 @@
 package com.fivegmag.a5gmscommonlibrary.helpers
 
+import com.fivegmag.a5gmscommonlibrary.models.EndpointAddress
+import com.fivegmag.a5gmscommonlibrary.models.HostInfo
 import java.text.SimpleDateFormat
 import java.time.Duration
 import java.util.Date
 import java.util.Random
 import java.util.TimeZone
 import okhttp3.Headers
+import java.net.NetworkInterface
+import java.net.URL
+import java.time.Instant
+import java.util.Locale
+import java.util.UUID
 
 class Utils {
 
@@ -23,6 +30,23 @@ class Utils {
 
         // Format the date to xs:datetime string
         return dateFormat.format(date)
+    }
+
+    fun generateUUID(): String {
+        val uuid = UUID.randomUUID()
+        return uuid.toString()
+    }
+
+    fun formatDateToOpenAPIFormat(date: Date): String {
+        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+        return format.format(date)
+    }
+
+    fun calculateTimestampDifferenceInSeconds(timestamp1: String, timestamp2: String): Long {
+        val instant1 = Instant.parse(timestamp1)
+        val instant2 = Instant.parse(timestamp2)
+        val duration = Duration.between(instant1, instant2)
+        return duration.seconds
     }
 
     fun getCurrentXsDateTime(): String {
@@ -69,7 +93,7 @@ class Utils {
         }
         val headersToValidate = arrayOf("last-modified", "etag")
 
-        return headersToValidate.all { header ->
+        return headersToValidate.any { header ->
             hasHeaderChanged(
                 headers.get(header),
                 previousResponseHeaders.get(header)
@@ -80,4 +104,90 @@ class Utils {
     private fun hasHeaderChanged(headerA: String?, headerB: String?): Boolean {
         return headerA == null || headerB == null || headerA != headerB
     }
+
+    fun getIpAddress(ipVer: Int): String? {
+        val interfaces = NetworkInterface.getNetworkInterfaces()
+        while (interfaces.hasMoreElements()) {
+            val networkInterface = interfaces.nextElement()
+            val addresses = networkInterface.inetAddresses
+            while (addresses.hasMoreElements()) {
+                val address = addresses.nextElement()
+                if (!address.isLoopbackAddress && address.isSiteLocalAddress) {
+                    if ((ipVer == 4 && address.hostAddress.contains(".")) ||
+                        (ipVer == 6 && address.hostAddress.contains(":"))
+                    ) {
+                        return address.hostAddress.toString()
+                    }
+                }
+            }
+        }
+
+        return null
+    }
+
+    fun getHostInfo(urlString: String): HostInfo? {
+        try {
+            val url = URL(urlString)
+            val host = url.host
+
+            // Check if it's a valid IPv4 address
+            val ipv4Regex = """^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$""".toRegex()
+            if (ipv4Regex.matches(host)) {
+                return HostInfo(HostInfoTypes.IP_V4, host)
+            }
+
+            // Check if it's a valid IPv6 address
+            val ipv6Regex = """^\[([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}\]$""".toRegex()
+            if (ipv6Regex.matches(host)) {
+                return HostInfo(HostInfoTypes.IP_V6, host)
+            }
+
+            // Remove leading "www." from the domain
+            val domain = if (host.startsWith("www.")) host.substring(4) else host
+
+            // Assume it's a domain name
+            return HostInfo(HostInfoTypes.DOMAIN_NAME, domain)
+        } catch (e: Exception) {
+            return null
+        }
+    }
+
+    fun getPort(url: String): Int? {
+        try {
+            val url = URL(url)
+            val port = url.port
+            if (port == -1) {
+                return url.defaultPort
+            }
+
+            return port
+        } catch (e: Exception) {
+            return null
+        }
+    }
+
+    fun getEndpointAddressByRequestUrl(
+        requestUrl: String
+    ): EndpointAddress? {
+        try {
+            val hostInfo = getHostInfo(requestUrl)
+            val port = getPort(requestUrl)
+
+            if (hostInfo != null && port != null) {
+                return when (hostInfo.type) {
+                    HostInfoTypes.IP_V4 -> EndpointAddress(null, hostInfo.host, null, port)
+                    HostInfoTypes.IP_V6 -> EndpointAddress(null, null, hostInfo.host, port)
+                    HostInfoTypes.DOMAIN_NAME -> EndpointAddress(hostInfo.host, null, null, port)
+                    else -> null
+                }
+            }
+
+            return null
+
+        } catch (e: Exception) {
+            return null
+        }
+
+    }
+
 }

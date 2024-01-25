@@ -16,10 +16,20 @@ import kotlinx.parcelize.Parcelize
 data class ServiceAccessInformation(
     val provisioningSessionId : String,
     val provisioningSessionType: String?,
-    val streamingAccess: StreamingAccess
+    val streamingAccess: StreamingAccess,
+    var clientConsumptionReportingConfiguration: ClientConsumptionReportingConfiguration?
 ) : Parcelable
 
 @Parcelize
 data class StreamingAccess(
     val entryPoints: ArrayList<EntryPoint>?
+) : Parcelable
+
+@Parcelize
+data class ClientConsumptionReportingConfiguration(
+    val serverAddresses : ArrayList<String>,
+    val locationReporting: Boolean,
+    val samplePercentage: Float,
+    val reportingInterval: Int? = null,
+    val accessReporting: Boolean
 ) : Parcelable

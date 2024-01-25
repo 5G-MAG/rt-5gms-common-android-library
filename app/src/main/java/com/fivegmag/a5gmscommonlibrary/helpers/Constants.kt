@@ -37,6 +37,9 @@ object SessionHandlerMessageTypes {
     const val UPDATE_LOOKUP_TABLE = 8
     const val SET_M5_ENDPOINT = 9
     const val START_PLAYBACK_BY_SERVICE_LIST_ENTRY_MESSAGE = 10
+    const val GET_CONSUMPTION_REPORT = 11
+    const val CONSUMPTION_REPORT = 12
+    const val UPDATE_PLAYBACK_CONSUMPTION_REPORTING_CONFIGURATION = 13
 }
 
 object SessionHandlerEvents {
@@ -54,4 +57,10 @@ object ContentTypes {
 object UserAgentTokens {
     const val FIVE_G_MS_REL_17_MEDIA_STREAM_HANDLER = "5GMSMediaStreamHandler/17"
     const val FIVE_G_MS_REL_17_MEDIA_SESSION_HANDLER = "5GMSMediaSessionHandler/17"
+}
+
+object HostInfoTypes {
+    const val IP_V4 = "ipv4"
+    const val IP_V6 = "ipv6"
+    const val DOMAIN_NAME = "domain_name"
 }
