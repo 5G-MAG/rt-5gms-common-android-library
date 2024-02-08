@@ -20,6 +20,11 @@ class LoadStartedEvent(
     val loadEventInfo: LoadEventInfo,
     val mediaLoadData: MediaLoadData
 )
+class LoadCompletedEvent(
+    val eventTime: EventTime,
+    val loadEventInfo: LoadEventInfo,
+    val mediaLoadData: MediaLoadData
+)
 
 class CellInfoUpdatedEvent(
     val cellInfoList: MutableList<CellInfo>
