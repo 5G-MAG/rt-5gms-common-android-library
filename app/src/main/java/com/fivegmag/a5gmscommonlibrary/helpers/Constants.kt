@@ -32,7 +32,7 @@ object SessionHandlerMessageTypes {
     const val REGISTER_CLIENT = 4
     const val UNREGISTER_CLIENT = 5
     const val START_PLAYBACK_BY_MEDIA_PLAYER_ENTRY_MESSAGE = 6
-    const val SESSION_HANDLER_TRIGGERS_PLAYBACK = 6
+    const val TRIGGER_PLAYBACK = 6
     const val UPDATE_LOOKUP_TABLE = 7
     const val SET_M5_ENDPOINT = 8
     const val START_PLAYBACK_BY_SERVICE_LIST_ENTRY_MESSAGE = 9
