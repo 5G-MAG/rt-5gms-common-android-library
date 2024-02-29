@@ -55,6 +55,8 @@ object SessionHandlerEvents {
 object ContentTypes {
     const val DASH = "application/dash+xml"
     const val HLS = "application/vnd.apple.mpegurl"
+    const val JSON = "application/json"
+    const val XML = "application/xml"
 }
 
 object UserAgentTokens {
