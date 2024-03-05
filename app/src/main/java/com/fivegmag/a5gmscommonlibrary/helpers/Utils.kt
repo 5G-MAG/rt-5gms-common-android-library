@@ -2,6 +2,8 @@ package com.fivegmag.a5gmscommonlibrary.helpers
 
 import android.content.res.AssetManager
 import java.util.Properties
+import com.fivegmag.a5gmscommonlibrary.models.EndpointAddress
+import com.fivegmag.a5gmscommonlibrary.models.HostInfo
 import java.text.SimpleDateFormat
 import java.time.Duration
 import java.util.Date
@@ -10,6 +12,7 @@ import java.util.TimeZone
 import okhttp3.Headers
 import java.io.InputStream
 import java.net.NetworkInterface
+import java.net.URL
 import java.time.Instant
 import java.util.Locale
 import java.util.UUID
@@ -113,9 +116,9 @@ class Utils {
             while (addresses.hasMoreElements()) {
                 val address = addresses.nextElement()
                 if (!address.isLoopbackAddress && address.isSiteLocalAddress) {
-                    if ((ipVer == 4 && address.hostAddress.contains("."))||
+                    if ((ipVer == 4 && address.hostAddress.contains(".")) ||
                         (ipVer == 6 && address.hostAddress.contains(":"))
-                    ){
+                    ) {
                         return address.hostAddress?.toString()
                     }
                 }
@@ -123,6 +126,71 @@ class Utils {
         }
 
         return null
+    }
+
+    fun getHostInfo(urlString: String): HostInfo? {
+        try {
+            val url = URL(urlString)
+            val host = url.host
+
+            // Check if it's a valid IPv4 address
+            val ipv4Regex = """^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$""".toRegex()
+            if (ipv4Regex.matches(host)) {
+                return HostInfo(HostInfoTypes.IP_V4, host)
+            }
+
+            // Check if it's a valid IPv6 address
+            val ipv6Regex = """^\[([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}\]$""".toRegex()
+            if (ipv6Regex.matches(host)) {
+                return HostInfo(HostInfoTypes.IP_V6, host)
+            }
+
+            // Remove leading "www." from the domain
+            val domain = if (host.startsWith("www.")) host.substring(4) else host
+
+            // Assume it's a domain name
+            return HostInfo(HostInfoTypes.DOMAIN_NAME, domain)
+        } catch (e: Exception) {
+            return null
+        }
+    }
+
+    fun getPort(url: String): Int? {
+        try {
+            val url = URL(url)
+            val port = url.port
+            if (port == -1) {
+                return url.defaultPort
+            }
+
+            return port
+        } catch (e: Exception) {
+            return null
+        }
+    }
+
+    fun getEndpointAddressByRequestUrl(
+        requestUrl: String
+    ): EndpointAddress? {
+        try {
+            val hostInfo = getHostInfo(requestUrl)
+            val port = getPort(requestUrl)
+
+            if (hostInfo != null && port != null) {
+                return when (hostInfo.type) {
+                    HostInfoTypes.IP_V4 -> EndpointAddress(null, hostInfo.host, null, port)
+                    HostInfoTypes.IP_V6 -> EndpointAddress(null, null, hostInfo.host, port)
+                    HostInfoTypes.DOMAIN_NAME -> EndpointAddress(hostInfo.host, null, null, port)
+                    else -> null
+                }
+            }
+
+            return null
+
+        } catch (e: Exception) {
+            return null
+        }
+
     }
 
     fun loadConfiguration(theAsset : AssetManager, file: String) : Properties {

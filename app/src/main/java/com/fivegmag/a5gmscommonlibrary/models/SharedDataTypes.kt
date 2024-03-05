@@ -23,7 +23,7 @@ data class EndpointAddress(
     val domainName: String? = null,
     val ipv4Addr: String? = null,
     val ipv6Addr: String? = null,
-    val portNumber: UInt
+    val portNumber: Int
 ) : Parcelable
 
 @Parcelize
@@ -32,3 +32,7 @@ enum class CellIdentifierType : Parcelable {
     ECGI,
     NCGI
 }
+data class HostInfo(
+    val type: String,
+    val host: String
+)
