@@ -44,6 +44,7 @@ data class ClientMetricsReportingConfiguration(
     val reportingInterval: Long? = null,
     val samplePercentage: Float? = null,
     val urlFilters: ArrayList<String>?,
+    val samplingPeriod: Long,
     val metrics: ArrayList<String>,
 
     // These are additional fields that we need for processing. They are not included in the spec and are populated during runtime

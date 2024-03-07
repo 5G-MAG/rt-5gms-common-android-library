@@ -15,7 +15,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class QoeMetricsRequest(
     var scheme: String = "",
-    var reportPeriod: Long? = 0,
+    var samplingPeriod: Long,
+    var reportingInterval: Long? = 0,
     var metrics: ArrayList<String>? = ArrayList(),
-    var metricReportingConfigurationId: String? = ""
+    var metricReportingConfigurationId: String? = "",
 ) : Parcelable
