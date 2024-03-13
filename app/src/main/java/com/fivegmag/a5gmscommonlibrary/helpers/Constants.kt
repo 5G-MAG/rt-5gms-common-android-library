@@ -31,7 +31,6 @@ object SessionHandlerMessageTypes {
     const val SERVICE_ACCESS_INFORMATION_MESSAGE = 3
     const val REGISTER_CLIENT = 4
     const val UNREGISTER_CLIENT = 5
-    const val START_PLAYBACK_BY_MEDIA_PLAYER_ENTRY_MESSAGE = 6
     const val TRIGGER_PLAYBACK = 6
     const val UPDATE_LOOKUP_TABLE = 7
     const val SET_M5_ENDPOINT = 8
@@ -39,10 +38,8 @@ object SessionHandlerMessageTypes {
     const val GET_CONSUMPTION_REPORT = 10
     const val CONSUMPTION_REPORT = 11
     const val UPDATE_PLAYBACK_CONSUMPTION_REPORTING_CONFIGURATION = 12
-    const val GET_QOE_METRICS_CAPABILITIES = 13
-    const val REPORT_QOE_METRICS_CAPABILITIES = 14
-    const val GET_QOE_METRICS_REPORT = 15
-    const val REPORT_QOE_METRICS = 16
+    const val GET_QOE_METRICS_REPORT = 13
+    const val REPORT_QOE_METRICS = 14
 }
 
 object SessionHandlerEvents {

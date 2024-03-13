@@ -18,5 +18,5 @@ data class QoeMetricsRequest(
     var samplingPeriod: Long,
     var reportingInterval: Long? = 0,
     var metrics: ArrayList<String>? = ArrayList(),
-    var metricReportingConfigurationId: String? = "",
+    var metricsReportingConfigurationId: String = "",
 ) : Parcelable
