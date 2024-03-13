@@ -37,4 +37,7 @@ data class QoeReport(
 
     @field:JacksonXmlProperty(isAttribute = true)
     var reportPeriod: Int? = 0,
+
+    @field:JacksonXmlProperty(isAttribute = true)
+    var recordingSessionId: String? = "",
 )
