@@ -202,10 +202,10 @@ class Utils {
 
     }
 
-    fun loadConfiguration(theAsset : AssetManager, file: String) : Properties {
+    fun loadConfiguration(assetManager : AssetManager, file: String) : Properties {
         val configProperties =  Properties()
         try {
-            val inputStream: InputStream = theAsset.open(file)
+            val inputStream: InputStream = assetManager.open(file)
             configProperties.loadFromXML(inputStream)
             inputStream.close()
         } catch (e: Exception) {
