@@ -28,11 +28,11 @@ import java.util.UUID
 
 class Utils {
 
-    private fun getCurrentTimestamp(): Long {
+    fun getCurrentTimestamp(): Long {
         return System.currentTimeMillis()
     }
 
-    private fun convertTimestampToXsDateTime(timestampInMillis: Long): String {
+    fun convertTimestampToXsDateTime(timestampInMillis: Long): String {
         // Create a Date object using the provided timestamp
         val date = Date(timestampInMillis)
 
