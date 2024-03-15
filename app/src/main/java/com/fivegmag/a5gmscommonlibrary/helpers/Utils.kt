@@ -1,5 +1,7 @@
 package com.fivegmag.a5gmscommonlibrary.helpers
 
+import android.content.res.AssetManager
+import java.util.Properties
 import com.fivegmag.a5gmscommonlibrary.models.EndpointAddress
 import com.fivegmag.a5gmscommonlibrary.models.HostInfo
 import java.text.SimpleDateFormat
@@ -8,6 +10,7 @@ import java.util.Date
 import java.util.Random
 import java.util.TimeZone
 import okhttp3.Headers
+import java.io.InputStream
 import java.net.NetworkInterface
 import java.net.URL
 import java.time.Instant
@@ -16,11 +19,11 @@ import java.util.UUID
 
 class Utils {
 
-    fun getCurrentTimestamp(): Long {
-        return System.currentTimeMillis();
+    private fun getCurrentTimestamp(): Long {
+        return System.currentTimeMillis()
     }
 
-    fun convertTimestampToXsDateTime(timestampInMillis: Long): String {
+    private fun convertTimestampToXsDateTime(timestampInMillis: Long): String {
         // Create a Date object using the provided timestamp
         val date = Date(timestampInMillis)
 
@@ -55,7 +58,7 @@ class Utils {
         return convertTimestampToXsDateTime(currentTimestamp)
     }
 
-    fun millisecondsToISO8601(milliseconds: Long): String? {
+    fun millisecondsToISO8601(milliseconds: Long): String {
         // Create a Duration object from milliseconds
         val duration: Duration = Duration.ofMillis(milliseconds)
 
@@ -116,7 +119,7 @@ class Utils {
                     if ((ipVer == 4 && address.hostAddress.contains(".")) ||
                         (ipVer == 6 && address.hostAddress.contains(":"))
                     ) {
-                        return address.hostAddress.toString()
+                        return address.hostAddress?.toString()
                     }
                 }
             }
@@ -188,6 +191,19 @@ class Utils {
             return null
         }
 
+    }
+
+    fun loadConfiguration(theAsset : AssetManager, file: String) : Properties {
+        val configProperties =  Properties()
+        try {
+            val inputStream: InputStream = theAsset.open(file)
+            configProperties.loadFromXML(inputStream)
+            inputStream.close()
+        } catch (e: Exception) {
+            print("loadConfiguration Exception: $e")
+        }
+
+        return  configProperties
     }
 
 }
