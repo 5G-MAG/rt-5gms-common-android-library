@@ -44,6 +44,11 @@ class Utils {
         return dateFormat.format(date)
     }
 
+    fun generateUuidToHexBinary(): String {
+        val uuid = this.generateUUID()
+        return uuid.replace("-", "")
+    }
+
     fun generateUUID(): String {
         val uuid = UUID.randomUUID()
         return uuid.toString()
@@ -202,8 +207,8 @@ class Utils {
 
     }
 
-    fun loadConfiguration(assetManager : AssetManager, file: String) : Properties {
-        val configProperties =  Properties()
+    fun loadConfiguration(assetManager: AssetManager, file: String): Properties {
+        val configProperties = Properties()
         try {
             val inputStream: InputStream = assetManager.open(file)
             configProperties.loadFromXML(inputStream)
@@ -212,7 +217,7 @@ class Utils {
             print("loadConfiguration Exception: $e")
         }
 
-        return  configProperties
+        return configProperties
     }
 
 }
