@@ -105,7 +105,7 @@ class UtilsUnitTest {
         assertNotNull(endpointAddress)
 
         if (endpointAddress != null) {
-            assertEquals("[108:0:0:0:8:800:200C:417A]", endpointAddress.ipv6Addr)
+            assertEquals("[1080:0:0:0:8:800:200C:417A]", endpointAddress.ipv6Addr)
             assertEquals(8888, endpointAddress.portNumber)
             assertNull(endpointAddress.domainName)
             assertNull(endpointAddress.ipv4Addr)
