@@ -17,7 +17,8 @@ data class ServiceAccessInformation(
     val provisioningSessionId : String,
     val provisioningSessionType: String?,
     val streamingAccess: StreamingAccess,
-    var clientConsumptionReportingConfiguration: ClientConsumptionReportingConfiguration?
+    var clientConsumptionReportingConfiguration: ClientConsumptionReportingConfiguration?,
+    var clientMetricsReportingConfigurations: ArrayList<ClientMetricsReportingConfiguration>?
 ) : Parcelable
 
 @Parcelize
@@ -32,4 +33,20 @@ data class ClientConsumptionReportingConfiguration(
     val samplePercentage: Float,
     val reportingInterval: Int? = null,
     val accessReporting: Boolean
+) : Parcelable
+
+@Parcelize
+data class ClientMetricsReportingConfiguration(
+    val metricsReportingConfigurationId: String,
+    val serverAddresses: ArrayList<String>,
+    val scheme: String,
+    val dataNetworkName: String?,
+    val reportingInterval: Long? = null,
+    val samplePercentage: Float? = null,
+    val urlFilters: ArrayList<String>?,
+    val samplingPeriod: Long,
+    val metrics: ArrayList<String>,
+
+    // These are additional fields that we need for processing. They are not included in the spec and are populated during runtime
+    var isSchemeSupported: Boolean? = false
 ) : Parcelable

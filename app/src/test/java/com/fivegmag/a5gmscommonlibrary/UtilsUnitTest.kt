@@ -2,9 +2,6 @@ package com.fivegmag.a5gmscommonlibrary
 
 import com.fivegmag.a5gmscommonlibrary.helpers.HostInfoTypes
 import com.fivegmag.a5gmscommonlibrary.helpers.Utils
-import com.fivegmag.a5gmscommonlibrary.models.EndpointAddress
-import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.junit.Assert.*
 
@@ -113,6 +110,13 @@ class UtilsUnitTest {
             assertNull(endpointAddress.domainName)
             assertNull(endpointAddress.ipv4Addr)
         }
+    }
+
+    @Test
+    fun generateUuidToHexBinary() {
+        val utils = Utils()
+        val uuid = utils.generateUuidToHexBinary()
+        assertEquals("java.lang.String", uuid.javaClass.name)
     }
 
 
