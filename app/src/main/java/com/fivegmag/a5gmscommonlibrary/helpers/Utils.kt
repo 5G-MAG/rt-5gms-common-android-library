@@ -1,3 +1,12 @@
+/*
+License: 5G-MAG Public License (v1.0)
+Author: Daniel Silhavy
+Copyright: (C) 2023 Fraunhofer FOKUS
+For full license terms please see the LICENSE file distributed with this
+program. If this file is missing then the license can be retrieved from
+https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+*/
+
 package com.fivegmag.a5gmscommonlibrary.helpers
 
 import android.content.res.AssetManager
@@ -19,11 +28,11 @@ import java.util.UUID
 
 class Utils {
 
-    private fun getCurrentTimestamp(): Long {
+    fun getCurrentTimestamp(): Long {
         return System.currentTimeMillis()
     }
 
-    private fun convertTimestampToXsDateTime(timestampInMillis: Long): String {
+    fun convertTimestampToXsDateTime(timestampInMillis: Long): String {
         // Create a Date object using the provided timestamp
         val date = Date(timestampInMillis)
 
@@ -33,6 +42,11 @@ class Utils {
 
         // Format the date to xs:datetime string
         return dateFormat.format(date)
+    }
+
+    fun generateUuidToHexBinary(): String {
+        val uuid = this.generateUUID()
+        return uuid.replace("-", "")
     }
 
     fun generateUUID(): String {
@@ -193,17 +207,17 @@ class Utils {
 
     }
 
-    fun loadConfiguration(theAsset : AssetManager, file: String) : Properties {
-        val configProperties =  Properties()
+    fun loadConfiguration(assetManager: AssetManager, file: String): Properties {
+        val configProperties = Properties()
         try {
-            val inputStream: InputStream = theAsset.open(file)
+            val inputStream: InputStream = assetManager.open(file)
             configProperties.loadFromXML(inputStream)
             inputStream.close()
         } catch (e: Exception) {
             print("loadConfiguration Exception: $e")
         }
 
-        return  configProperties
+        return configProperties
     }
 
 }
