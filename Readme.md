@@ -5,7 +5,8 @@ This repository holds the 5GMS Common Library implementation of the 5G-MAG Refer
 ## Introduction
 
 The 5GMS Common Library is an Android library that includes models and helper classes used within
-the different client-side Android applications such as the 5GMSd-Aware Application, 5GMSd Media Stream
+the different client-side Android applications such as the 5GMSd-Aware Application, 5GMSd Media
+Stream
 Handler and the 5GMSd Media Session Handler.
 
 ## Downloading
@@ -63,6 +64,9 @@ dependencyResolutionManagement {
 ````
 
 #### 2. Include the 5GMS Common Library in your module gradle file
+
+Replace the version number in the example below with the version number you are using,
+e.g. `1.2.0` instead of `1.0.0`.
 
 ````
 dependencies {
