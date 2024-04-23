@@ -73,10 +73,10 @@ object MetricReportingSchemes {
 }
 
 object Metrics {
-    const val BUFFER_LEVEL = "BufferLevel"
-    const val HTTP_LIST = "HTTPList"
-    const val REP_SWITCH_LIST = "RepSwitchList"
-    const val MPD_INFORMATION = "MPDInformation"
+    const val BUFFER_LEVEL = "urn:3GPP:ns:PSS:DASH:QM10#BufferLevel"
+    const val HTTP_LIST = "urn:3GPP:ns:PSS:DASH:QM10#HTTPList"
+    const val REP_SWITCH_LIST = "urn:3GPP:ns:PSS:DASH:QM10#RepSwitchList"
+    const val MPD_INFORMATION = "urn:3GPP:ns:PSS:DASH:QM10#MPDInformation"
 }
 
 object XmlSchemaStrings {
