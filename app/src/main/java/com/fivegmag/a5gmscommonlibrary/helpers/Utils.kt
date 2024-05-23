@@ -1,5 +1,16 @@
+/*
+License: 5G-MAG Public License (v1.0)
+Author: Daniel Silhavy
+Copyright: (C) 2023 Fraunhofer FOKUS
+For full license terms please see the LICENSE file distributed with this
+program. If this file is missing then the license can be retrieved from
+https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+*/
+
 package com.fivegmag.a5gmscommonlibrary.helpers
 
+import android.content.res.AssetManager
+import java.util.Properties
 import com.fivegmag.a5gmscommonlibrary.models.EndpointAddress
 import com.fivegmag.a5gmscommonlibrary.models.HostInfo
 import java.text.SimpleDateFormat
@@ -8,6 +19,7 @@ import java.util.Date
 import java.util.Random
 import java.util.TimeZone
 import okhttp3.Headers
+import java.io.InputStream
 import java.net.NetworkInterface
 import java.net.URL
 import java.time.Instant
@@ -17,7 +29,7 @@ import java.util.UUID
 class Utils {
 
     fun getCurrentTimestamp(): Long {
-        return System.currentTimeMillis();
+        return System.currentTimeMillis()
     }
 
     fun convertTimestampToXsDateTime(timestampInMillis: Long): String {
@@ -30,6 +42,11 @@ class Utils {
 
         // Format the date to xs:datetime string
         return dateFormat.format(date)
+    }
+
+    fun generateUuidToHexBinary(): String {
+        val uuid = this.generateUUID()
+        return uuid.replace("-", "")
     }
 
     fun generateUUID(): String {
@@ -55,7 +72,7 @@ class Utils {
         return convertTimestampToXsDateTime(currentTimestamp)
     }
 
-    fun millisecondsToISO8601(milliseconds: Long): String? {
+    fun millisecondsToISO8601(milliseconds: Long): String {
         // Create a Duration object from milliseconds
         val duration: Duration = Duration.ofMillis(milliseconds)
 
@@ -116,7 +133,7 @@ class Utils {
                     if ((ipVer == 4 && address.hostAddress.contains(".")) ||
                         (ipVer == 6 && address.hostAddress.contains(":"))
                     ) {
-                        return address.hostAddress.toString()
+                        return address.hostAddress?.toString()
                     }
                 }
             }
@@ -188,6 +205,19 @@ class Utils {
             return null
         }
 
+    }
+
+    fun loadConfiguration(assetManager: AssetManager, file: String): Properties {
+        val configProperties = Properties()
+        try {
+            val inputStream: InputStream = assetManager.open(file)
+            configProperties.loadFromXML(inputStream)
+            inputStream.close()
+        } catch (e: Exception) {
+            print("loadConfiguration Exception: $e")
+        }
+
+        return configProperties
     }
 
 }
