@@ -7,6 +7,8 @@ program. If this file is missing then the license can be retrieved from
 https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 */
 
+@file:Suppress("UnsafeOptInUsageError")
+
 package com.fivegmag.a5gmscommonlibrary.eventbus
 
 import android.telephony.CellInfo
@@ -29,6 +31,7 @@ class LoadStartedEvent(
     val loadEventInfo: LoadEventInfo,
     val mediaLoadData: MediaLoadData
 )
+
 class LoadCompletedEvent(
     val eventTime: EventTime,
     val loadEventInfo: LoadEventInfo,
