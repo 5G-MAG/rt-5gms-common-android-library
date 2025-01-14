@@ -130,8 +130,8 @@ class Utils {
             while (addresses.hasMoreElements()) {
                 val address = addresses.nextElement()
                 if (!address.isLoopbackAddress && address.isSiteLocalAddress) {
-                    if ((ipVer == 4 && address.hostAddress.contains(".")) ||
-                        (ipVer == 6 && address.hostAddress.contains(":"))
+                    if ((ipVer == 4 && address?.hostAddress?.contains(".") == true) ||
+                        (ipVer == 6 && address?.hostAddress?.contains(":") == true)
                     ) {
                         return address.hostAddress?.toString()
                     }
@@ -171,10 +171,10 @@ class Utils {
 
     fun getPort(url: String): Int? {
         try {
-            val url = URL(url)
-            val port = url.port
+            val urlInstance = URL(url)
+            val port = urlInstance.port
             if (port == -1) {
-                return url.defaultPort
+                return urlInstance.defaultPort
             }
 
             return port
