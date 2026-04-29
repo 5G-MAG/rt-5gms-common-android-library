@@ -133,7 +133,7 @@ class Utils {
                     if ((ipVer == 4 && address?.hostAddress?.contains(".") == true) ||
                         (ipVer == 6 && address?.hostAddress?.contains(":") == true)
                     ) {
-                        return address.hostAddress?.toString()
+                        return address.hostAddress
                     }
                 }
             }
