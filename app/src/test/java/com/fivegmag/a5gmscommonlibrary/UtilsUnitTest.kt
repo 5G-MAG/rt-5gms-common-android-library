@@ -76,9 +76,7 @@ class UtilsUnitTest {
 
         if (endpointAddress != null) {
             assertEquals("dash.akamaized.net", endpointAddress.domainName)
-            assertEquals(8888, endpointAddress.portNumber)
-            assertNull(endpointAddress.ipv4Addr)
-            assertNull(endpointAddress.ipv6Addr)
+            assertEquals(listOf(8888), endpointAddress.portNumbers)
         }
     }
     @Test
@@ -90,10 +88,9 @@ class UtilsUnitTest {
         assertNotNull(endpointAddress)
 
         if (endpointAddress != null) {
-            assertEquals("192.168.1.1", endpointAddress.ipv4Addr)
-            assertEquals(8888, endpointAddress.portNumber)
-            assertNull(endpointAddress.domainName)
-            assertNull(endpointAddress.ipv6Addr)
+            // the table of TS 26.510 7.3.3.11 has no IP address property: the textual address is carried in domainName
+            assertEquals("192.168.1.1", endpointAddress.domainName)
+            assertEquals(listOf(8888), endpointAddress.portNumbers)
         }
     }
     @Test
@@ -105,10 +102,8 @@ class UtilsUnitTest {
         assertNotNull(endpointAddress)
 
         if (endpointAddress != null) {
-            assertEquals("[1080:0:0:0:8:800:200C:417A]", endpointAddress.ipv6Addr)
-            assertEquals(8888, endpointAddress.portNumber)
-            assertNull(endpointAddress.domainName)
-            assertNull(endpointAddress.ipv4Addr)
+            assertEquals("[1080:0:0:0:8:800:200C:417A]", endpointAddress.domainName)
+            assertEquals(listOf(8888), endpointAddress.portNumbers)
         }
     }
 

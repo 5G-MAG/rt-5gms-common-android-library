@@ -18,12 +18,15 @@ data class TypedLocation(
     val location: String
 ) : Parcelable
 
+/**
+ * TS 26.510 V19.2.0 table 7.3.3.11-1: a domain name and the port numbers of the endpoint. The table has no property for an IP
+ * address; where the endpoint is known only by address, the textual address is carried in domainName (specification defect SD-019,
+ * decided by the owner on 2026-10-24: follow the table and the OpenAPI for now).
+ */
 @Parcelize
 data class EndpointAddress(
-    val domainName: String? = null,
-    val ipv4Addr: String? = null,
-    val ipv6Addr: String? = null,
-    val portNumber: Int
+    val domainName: String,
+    val portNumbers: List<Int>
 ) : Parcelable
 
 @Parcelize

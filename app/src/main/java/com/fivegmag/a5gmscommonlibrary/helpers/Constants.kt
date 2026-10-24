@@ -54,6 +54,8 @@ object ContentTypes {
     const val HLS = "application/vnd.apple.mpegurl"
     const val JSON = "application/json"
     const val XML = "application/xml"
+    // TS 26.247 clause 10.6.1 (MIME type of an XML-formatted QoE report)
+    const val QOE_REPORT_XML = "application/3gpdash-qoe-report+xml"
 }
 
 object UserAgentTokens {
@@ -72,13 +74,14 @@ object MetricReportingSchemes {
     const val THREE_GPP_DASH_METRIC_REPORTING = "urn:3GPP:ns:PSS:DASH:QM10"
 }
 
+// The term identifiers of TS 26.512 V19.3.0 clause E.2.1 are the key names of TS 26.247 clause 10.2
 object Metrics {
     const val BUFFER_LEVEL = "urn:3GPP:ns:PSS:DASH:QM10#BufferLevel"
     const val REP_SWITCH_LIST = "urn:3GPP:ns:PSS:DASH:QM10#RepSwitchList"
     const val MPD_INFORMATION = "urn:3GPP:ns:PSS:DASH:QM10#MPDInformation"
     const val INITIAL_PLAYOUT_DELAY = "urn:3GPP:ns:PSS:DASH:QM10#InitialPlayoutDelay"
-    const val PLAYOUT_DELAY_FOR_MEDIA_STARTUP = "urn:3GPP:ns:PSS:DASH:QM10#PlayoutDelayForMediaStartup"
-    const val DEVICE_INFORMATION = "urn:3GPP:ns:PSS:DASH:QM10#DeviceInformation"
+    const val PLAYOUT_DELAY_FOR_MEDIA_STARTUP = "urn:3GPP:ns:PSS:DASH:QM10#PlayoutDelayforMediaStartup"
+    const val DEVICE_INFORMATION = "urn:3GPP:ns:PSS:DASH:QM10#DeviceInformationList"
     const val AVG_THROUGHPUT = "urn:3GPP:ns:PSS:DASH:QM10#AvgThroughput"
     const val PLAY_LIST = "urn:3GPP:ns:PSS:DASH:QM10#PlayList"
 }

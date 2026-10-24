@@ -192,9 +192,8 @@ class Utils {
 
             if (hostInfo != null && port != null) {
                 return when (hostInfo.type) {
-                    HostInfoTypes.IP_V4 -> EndpointAddress(null, hostInfo.host, null, port)
-                    HostInfoTypes.IP_V6 -> EndpointAddress(null, null, hostInfo.host, port)
-                    HostInfoTypes.DOMAIN_NAME -> EndpointAddress(hostInfo.host, null, null, port)
+                    HostInfoTypes.IP_V4, HostInfoTypes.IP_V6, HostInfoTypes.DOMAIN_NAME ->
+                        EndpointAddress(hostInfo.host, listOf(port))
                     else -> null
                 }
             }

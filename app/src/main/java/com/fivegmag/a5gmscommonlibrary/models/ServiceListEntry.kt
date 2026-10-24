@@ -13,7 +13,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ServiceListEntry(
-    val provisioningSessionId : String,
+    /** The externalServiceId of the Provisioning Session (TS 26.510 table 8.2.3.1-1): the key of the Service Access Information at M5 */
+    val externalServiceId : String,
     val name: String,
     val entryPoints: ArrayList<EntryPoint>?
 ) : Parcelable
@@ -21,7 +22,8 @@ data class ServiceListEntry(
 @Parcelize
 data class EntryPoint(
     val locator: String,
-    val contentType: String,
-    val profiles: ArrayList<String>?
+    val contentType: String?,
+    val profiles: ArrayList<String>?,
+    val protocol: String? = null // an AbsoluteMediaEntryPoint has a contentType or a protocol
 ) : Parcelable
 

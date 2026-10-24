@@ -22,8 +22,8 @@ class M8ModelUnitTest {
         var secondEntryPointList = ArrayList<EntryPoint>()
         secondEntryPointList.add(secondEntryPoint)
 
-        var firstServiceListEntry = ServiceListEntry("id1", "name1", firstEntryPointList)
-        var secondServiceListEntry = ServiceListEntry("id2", "name2", secondEntryPointList)
+        var firstServiceListEntry = ServiceListEntry("com.example.id1", "name1", firstEntryPointList)
+        var secondServiceListEntry = ServiceListEntry("com.example.id2", "name2", secondEntryPointList)
         var serviceList = ArrayList<ServiceListEntry>()
         serviceList.add(firstServiceListEntry)
         serviceList.add(secondServiceListEntry)
@@ -32,8 +32,8 @@ class M8ModelUnitTest {
         var m8Model = M8Model(m5BaseUrl, serviceList)
 
         assertEquals(m5BaseUrl, m8Model.m5BaseUrl)
-        assertEquals("id1", m8Model.serviceList.get(0).provisioningSessionId)
-        assertEquals("id2", m8Model.serviceList.get(1).provisioningSessionId)
+        assertEquals("com.example.id1", m8Model.serviceList.get(0).externalServiceId)
+        assertEquals("com.example.id2", m8Model.serviceList.get(1).externalServiceId)
         assertEquals("name1", m8Model.serviceList.get(0).name)
         assertEquals("name2", m8Model.serviceList.get(1).name)
         assertEquals("locator1", m8Model.serviceList.get(0).entryPoints?.get(0)?.locator ?: "fail")
