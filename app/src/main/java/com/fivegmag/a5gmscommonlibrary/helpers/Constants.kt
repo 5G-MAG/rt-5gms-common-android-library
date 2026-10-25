@@ -40,12 +40,99 @@ object SessionHandlerMessageTypes {
     const val UPDATE_PLAYBACK_CONSUMPTION_REPORTING_CONFIGURATION = 12
     const val GET_QOE_METRICS_REPORT = 13
     const val REPORT_QOE_METRICS = 14
+
+    // The general client API of TS 26.510 V19.2.0 clause 11.2.2: createMediaDeliverySession(), destroyMediaDeliverySession() and the
+    // general status of table 11.2.3-1. The reply of a method is the message of the same name with _REPLY; a notification event of
+    // tables 11.2.3-2 and 11.2.3-3 is a NOTIFICATION_EVENT message whose bundle names the event (SessionHandlerEvents).
+    const val CREATE_MEDIA_DELIVERY_SESSION = 15
+    const val CREATE_MEDIA_DELIVERY_SESSION_REPLY = 16
+    const val DESTROY_MEDIA_DELIVERY_SESSION = 17
+    const val GET_SESSION_STATUS = 18
+    const val GET_SESSION_STATUS_REPLY = 19
+    const val NOTIFICATION_EVENT = 20
+
+    // The status of Consumption Reporting (table 11.5.2-1) and of Metrics Reporting (table 11.6.2-1) of a media delivery session
+    const val GET_CONSUMPTION_REPORTING_STATUS = 21
+    const val GET_CONSUMPTION_REPORTING_STATUS_REPLY = 22
+    const val GET_METRICS_REPORTING_STATUS = 23
+    const val GET_METRICS_REPORTING_STATUS_REPLY = 24
+
+    // Step 10 of the DASH procedure of TS 26.501 V19.4.0 clause 5.2.3: the Media Player notifies the Media Session Handler about the MPD,
+    // with parameters of it
+    const val MANIFEST_NOTIFICATION = 25
+}
+
+// Table 11.2.3-1: sessionHandlingState
+object SessionHandlingStates {
+    const val ACTIVE = "ACTIVE"
+    const val ERRORED = "ERRORED"
+}
+
+// The keys of the bundles of the general client API (tables 11.2.2.1-1, 11.2.2.1-2, 11.2.2.2-1, 11.2.3-1, 11.2.3-2)
+object SessionHandlerBundleKeys {
+    const val SERVICE_ID = "serviceId"
+    const val CONTENT_ID = "contentId"
+    const val ENTRY_POINT = "entryPoint"
+    const val DOMAIN_NAMES = "domainNames"
+    const val ACCESS_TOKEN = "accessToken"
+    const val MEDIA_DELIVERY_SESSION_IDENTIFIER = "mediaDeliverySessionIdentifier"
+    const val CONTENT_IDENTIFIER = "contentIdentifier"
+    const val SESSION_HANDLING_STATE = "sessionHandlingState"
+    const val EVENT = "event"
+    const val MEDIA_ENTRY_POINT_URL = "mediaEntryPointUrl"
+    const val STREAMING_ACCESS = "streamingAccess"
+
+    // Every message of a Media Stream Handler instance carries the identifier of the instance: an application may run several
+    // instances, one per media delivery session (TS 26.510 V19.2.0 clause 11.2.2.1 creates a new media delivery session on each call)
+    const val CLIENT_INSTANCE_ID = "clientInstanceId"
+
+    // The parameters of the MPD in MANIFEST_NOTIFICATION
+    const val MPD_DYNAMIC = "mpdDynamic"
+    const val MPD_DURATION_MS = "mpdDurationMs"
+    const val MPD_MIN_BUFFER_TIME_MS = "mpdMinBufferTimeMs"
+    const val MPD_PERIOD_COUNT = "mpdPeriodCount"
+
+    // Clauses 11.5 and 11.6: the reporting status and the payload of the reporting error events
+    const val CONSUMPTION_REPORT = "consumptionReport"
+    const val METRICS_REPORT = "metricsReport"
+    const val PROVISIONING_SESSION_ID = "provisioningSessionId"
+    const val METRICS_REPORTING_CONFIGURATION_ID = "metricsReportingConfigurationId"
+    const val SCHEME = "scheme"
+    const val SERVER_ADDRESS = "serverAddress"
+    const val HTTP_RESPONSE_CODE = "httpResponseCode"
+    const val ERROR_MESSAGE = "errorMessage"
 }
 
 object SessionHandlerEvents {
     object Notification {
         const val SESSION_HANDLING_ACTIVATED = "SESSION_HANDLING_ACTIVATED"
-        const val SESSION_HANDLING_STOPPED = "SESSION_HANDLING_STOPPED"
+        const val SESSION_HANDLING_TERMINATED = "SESSION_HANDLING_TERMINATED"
+        const val STREAMING_ACCESS_UPDATED = "STREAMING_ACCESS_UPDATED"
+
+        // The former name of SESSION_HANDLING_TERMINATED, which no code sent
+        @Deprecated("TS 26.510 V19.2.0 table 11.2.3-2 names the event SESSION_HANDLING_TERMINATED", ReplaceWith("SESSION_HANDLING_TERMINATED"))
+        const val SESSION_HANDLING_STOPPED = SESSION_HANDLING_TERMINATED
+    }
+
+    // Tables 11.5.2-2 and 11.6.2-2
+    object ConsumptionReporting {
+        const val CONSUMPTION_REPORTING_ACTIVATED = "CONSUMPTION_REPORTING_ACTIVATED"
+        const val CONSUMPTION_REPORTING_STOPPED = "CONSUMPTION_REPORTING_STOPPED"
+        const val NEW_CONSUMPTION_REPORT = "NEW_CONSUMPTION_REPORT"
+    }
+
+    object MetricsReporting {
+        const val METRICS_REPORTING_ACTIVATED = "METRICS_REPORTING_ACTIVATED"
+        const val METRICS_REPORTING_STOPPED = "METRICS_REPORTING_STOPPED"
+        const val NEW_METRICS_REPORT = "NEW_METRICS_REPORT"
+    }
+
+    object Error {
+        const val ERROR_SESSION_HANDLING = "ERROR_SESSION_HANDLING"
+
+        // Tables 11.5.2-3 and 11.6.2-3
+        const val ERROR_CONSUMPTION_REPORTING = "ERROR_CONSUMPTION_REPORTING"
+        const val ERROR_METRICS_REPORTING = "ERROR_METRICS_REPORTING"
     }
 }
 
@@ -67,6 +154,22 @@ object HostInfoTypes {
     const val IP_V4 = "ipv4"
     const val IP_V6 = "ipv6"
     const val DOMAIN_NAME = "domain_name"
+}
+
+// TS 26.512 V19.3.0 table 7.8.1-1: the CMCD metrics scheme identifiers, one per class of CMCD information (CTA-5004)
+object CmcdSchemes {
+    const val SESSION = "urn:3gpp:5gms:metrics:common-media-client-data:session"
+    const val OBJECT = "urn:3gpp:5gms:metrics:common-media-client-data:object"
+    const val REQUEST = "urn:3gpp:5gms:metrics:common-media-client-data:request"
+    const val STATUS = "urn:3gpp:5gms:metrics:common-media-client-data:status"
+
+    /** The keys of each class of CMCD version 1 (CTA-5004 table 2) */
+    val KEYS: Map<String, Set<String>> = mapOf(
+        SESSION to setOf("cid", "pr", "sf", "sid", "st", "v"),
+        OBJECT to setOf("br", "d", "ot", "tb"),
+        REQUEST to setOf("bl", "dl", "mtp", "nor", "nrr", "su"),
+        STATUS to setOf("bs", "rtp")
+    )
 }
 
 object MetricReportingSchemes {

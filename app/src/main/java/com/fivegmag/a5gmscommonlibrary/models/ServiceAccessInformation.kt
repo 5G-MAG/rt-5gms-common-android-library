@@ -10,18 +10,22 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 package com.fivegmag.a5gmscommonlibrary.models
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ServiceAccessInformation(
     val provisioningSessionId : String,
     val provisioningSessionType: String?,
-    val streamingAccess: StreamingAccess,
+    // 0..1 in table 9.2.3.1-1 of TS 26.510 V19.2.0: a Provisioning Session that offers no streaming access has none
+    val streamingAccess: StreamingAccess? = null,
     var clientConsumptionReportingConfiguration: ClientConsumptionReportingConfiguration?,
     var clientMetricsReportingConfigurations: ArrayList<ClientMetricsReportingConfiguration>?,
     // TS 26.510 V19.2.0 table 9.2.3.1-1; the properties below are absent from the resource of a Media AF that does not offer them
     val locationReporting: Boolean? = null,
-    val notficationURL: String? = null, // the spelling of the property in TS26510_Maf_SessionHandling_ServiceAccessInformation.yaml
+    // table 9.2.3.1-1 names the property notificationURL; a Media AF generated from the YAML of TS 26.510 spells it notficationURL
+    @SerializedName("notificationURL", alternate = ["notficationURL"])
+    val notificationURL: String? = null,
     val rtcClientConfiguration: RtcClientConfiguration? = null,
     val dynamicPolicyInvocationConfiguration: DynamicPolicyInvocationConfiguration? = null,
     val networkAssistanceConfiguration: NetworkAssistanceConfiguration? = null,

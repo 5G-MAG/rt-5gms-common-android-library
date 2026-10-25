@@ -59,15 +59,29 @@ class ServiceAccessInformationUnitTest {
     }
     """
 
+    // table 9.2.3.1-1 spells the property notificationURL, the YAML notficationURL: both are read
+    // table 9.2.3.1-1: streamingAccess is 0..1
+    @Test
+    fun streamingAccessMayBeAbsent() {
+        val sai = Gson().fromJson("""{"provisioningSessionId":"ps1","provisioningSessionType":"DOWNLINK"}""", ServiceAccessInformation::class.java)
+        assertNull(sai.streamingAccess)
+    }
+
+    @Test
+    fun notificationUrlIsReadUnderBothSpellings() {
+        val spec = Gson().fromJson(full.replace("notficationURL", "notificationURL"), ServiceAccessInformation::class.java)
+        assertEquals("http://af.example/notify", spec.notificationURL)
+    }
+
     @Test
     fun everyPropertyOfTheRelease19ResourceIsKept() {
         val sai = Gson().fromJson(full, ServiceAccessInformation::class.java)
         assertEquals(true, sai.locationReporting)
-        assertEquals("http://af.example/notify", sai.notficationURL)
-        assertEquals("https://sa.example/usd", sai.streamingAccess.eMBMSServiceAnnouncementLocator)
-        assertEquals("mbs-1", sai.streamingAccess.mbsExternalServiceIdentifier)
-        assertEquals("urn:3gpp:5gms:content-protocol:http-pull", sai.streamingAccess.entryPoints!![1].protocol)
-        assertNull(sai.streamingAccess.entryPoints!![1].contentType)
+        assertEquals("http://af.example/notify", sai.notificationURL)
+        assertEquals("https://sa.example/usd", sai.streamingAccess!!.eMBMSServiceAnnouncementLocator)
+        assertEquals("mbs-1", sai.streamingAccess!!.mbsExternalServiceIdentifier)
+        assertEquals("urn:3gpp:5gms:content-protocol:http-pull", sai.streamingAccess!!.entryPoints!![1].protocol)
+        assertNull(sai.streamingAccess!!.entryPoints!![1].contentType)
         assertEquals("u", sai.rtcClientConfiguration!!.turnEndpoints!![0].credentials!!.username)
         assertEquals(listOf(3478), sai.rtcClientConfiguration!!.stunEndpoints!![0].portNumbers)
         val dp = sai.dynamicPolicyInvocationConfiguration!!
@@ -90,7 +104,7 @@ class ServiceAccessInformationUnitTest {
                 "streamingAccess":{"entryPoints":[{"locator":"https://x/a.mpd","contentType":"application/dash+xml"}]}}""",
             ServiceAccessInformation::class.java
         )
-        assertNotNull(sai.streamingAccess.entryPoints)
+        assertNotNull(sai.streamingAccess!!.entryPoints)
         assertFalse(sai.locationReporting!!)
         assertNull(sai.dynamicPolicyInvocationConfiguration)
         assertNull(sai.networkAssistanceConfiguration)
