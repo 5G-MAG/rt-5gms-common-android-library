@@ -64,10 +64,103 @@ data class ClientMetricsReportingConfiguration(
     val reportingDuration: Long? = null,
     val positiveCrossingThresholds: HashMap<String, ArrayList<Float>>? = null,
     val negativeCrossingThresholds: HashMap<String, ArrayList<Float>>? = null,
+    // TS 26.510 V19.2.0 table 9.5.3.1-1: the locations where metrics are collected (LocationArea5G of TS 29.122 V19.7.0 clause 5.2.1.2.17)
+    val locationFilter: ArrayList<LocationArea5G>? = null,
 
     // These are additional fields that we need for processing. They are not included in the spec and are populated during runtime
     var isSchemeSupported: Boolean? = false
 ) : Parcelable
+/** LocationArea5G (TS 29.122 V19.7.0 clause 5.2.1.2.17): the network area, the geographic areas and the civic addresses */
+@Parcelize
+data class LocationArea5G(
+    val nwAreaInfo: NetworkAreaInfo? = null,
+    val geographicAreas: ArrayList<GeographicArea>? = null,
+    val civicAddresses: ArrayList<CivicAddress>? = null
+) : Parcelable
+
+/**
+ * CivicAddress (TS 29.572 V19.7.0 clause 6.1.6.2.14, the elements of IETF RFC 4776): the country code and the elements that the Media Session
+ * Handler can compare with an address of the UE (A1 to A4, road, house number, postal code); an area that names any other element is not
+ * matched (the UE cannot show it)
+ */
+@Parcelize
+data class CivicAddress(
+    val country: String? = null,
+    @SerializedName("A1") val a1: String? = null,
+    @SerializedName("A2") val a2: String? = null,
+    @SerializedName("A3") val a3: String? = null,
+    @SerializedName("A4") val a4: String? = null,
+    @SerializedName("A5") val a5: String? = null,
+    @SerializedName("A6") val a6: String? = null,
+    @SerializedName("RD") val rd: String? = null,
+    @SerializedName("HNO") val hno: String? = null,
+    @SerializedName("PC") val pc: String? = null,
+    @SerializedName("PRD") val prd: String? = null,
+    @SerializedName("POD") val pod: String? = null,
+    @SerializedName("STS") val sts: String? = null,
+    @SerializedName("HNS") val hns: String? = null,
+    @SerializedName("LMK") val lmk: String? = null,
+    @SerializedName("LOC") val loc: String? = null,
+    @SerializedName("NAM") val nam: String? = null,
+    @SerializedName("BLD") val bld: String? = null,
+    @SerializedName("UNIT") val unit: String? = null,
+    @SerializedName("FLR") val flr: String? = null,
+    @SerializedName("ROOM") val room: String? = null,
+    @SerializedName("PLC") val plc: String? = null,
+    @SerializedName("PCN") val pcn: String? = null,
+    @SerializedName("POBOX") val pobox: String? = null,
+    @SerializedName("ADDCODE") val addcode: String? = null,
+    @SerializedName("SEAT") val seat: String? = null,
+    @SerializedName("RDSEC") val rdsec: String? = null,
+    @SerializedName("RDBR") val rdbr: String? = null,
+    @SerializedName("RDSUBBR") val rdsubbr: String? = null,
+    @SerializedName("PRM") val prm: String? = null,
+    @SerializedName("POM") val pom: String? = null
+) : Parcelable
+
+/**
+ * GeographicArea (TS 29.572 V19.7.0 clause 6.1.6.2.5), one class for all the shapes: "shape" names it (POINT, POINT_UNCERTAINTY_CIRCLE,
+ * POINT_UNCERTAINTY_ELLIPSE, POLYGON, POINT_ALTITUDE, POINT_ALTITUDE_UNCERTAINTY, ELLIPSOID_ARC) and decides which of the others are present
+ */
+@Parcelize
+data class GeographicArea(
+    val shape: String,
+    val point: GeographicalCoordinates? = null,
+    val uncertainty: Double? = null,
+    val uncertaintyEllipse: UncertaintyEllipse? = null,
+    val pointList: ArrayList<GeographicalCoordinates>? = null,
+    val innerRadius: Double? = null,
+    val uncertaintyRadius: Double? = null,
+    val offsetAngle: Double? = null,
+    val includedAngle: Double? = null
+) : Parcelable
+
+@Parcelize
+data class GeographicalCoordinates(val lon: Double, val lat: Double) : Parcelable
+
+@Parcelize
+data class UncertaintyEllipse(val semiMajor: Double, val semiMinor: Double, val orientationMajor: Double) : Parcelable
+
+/** NetworkAreaInfo (TS 29.554 V19.2.1 clause 5.6.2.8): cells and tracking areas; the NG-RAN node identities are not modelled */
+@Parcelize
+data class NetworkAreaInfo(
+    val ecgis: ArrayList<Ecgi>? = null,
+    val ncgis: ArrayList<Ncgi>? = null,
+    val tais: ArrayList<Tai>? = null
+) : Parcelable
+
+@Parcelize
+data class PlmnId(val mcc: String, val mnc: String) : Parcelable
+
+@Parcelize
+data class Tai(val plmnId: PlmnId, val tac: String) : Parcelable
+
+@Parcelize
+data class Ecgi(val plmnId: PlmnId, val eutraCellId: String) : Parcelable
+
+@Parcelize
+data class Ncgi(val plmnId: PlmnId, val nrCellId: String) : Parcelable
+
 @Parcelize
 data class Snssai(
     val sst: Int,

@@ -60,6 +60,10 @@ object SessionHandlerMessageTypes {
     // Step 10 of the DASH procedure of TS 26.501 V19.4.0 clause 5.2.3: the Media Player notifies the Media Session Handler about the MPD,
     // with parameters of it
     const val MANIFEST_NOTIFICATION = 25
+
+    // The Media Stream Handler tells the Media Session Handler that a metric crossed one of the thresholds of a metrics reporting configuration
+    // (TS 26.510 V19.2.0 clause 5.2.11.1); the bundle has the configuration identifier, the metric and the value
+    const val METRIC_THRESHOLD_CROSSED = 26
 }
 
 // Table 11.2.3-1: sessionHandlingState
@@ -91,6 +95,11 @@ object SessionHandlerBundleKeys {
     const val MPD_DURATION_MS = "mpdDurationMs"
     const val MPD_MIN_BUFFER_TIME_MS = "mpdMinBufferTimeMs"
     const val MPD_PERIOD_COUNT = "mpdPeriodCount"
+
+    // The parameters of METRIC_THRESHOLD_CROSSED
+    const val THRESHOLD_METRIC = "thresholdMetric"
+    const val THRESHOLD_VALUE = "thresholdValue"
+    const val THRESHOLD_POSITIVE = "thresholdPositive"
 
     // Clauses 11.5 and 11.6: the reporting status and the payload of the reporting error events
     const val CONSUMPTION_REPORT = "consumptionReport"

@@ -19,6 +19,9 @@ data class QoeMetricsRequest(
     var reportingInterval: Long? = 0,
     var metrics: ArrayList<String>? = ArrayList(),
     var metricsReportingConfigurationId: String = "",
+    // TS 26.510 V19.2.0 clause 5.2.11.1: metric (URI) to the threshold values whose crossing is to be reported
+    var positiveCrossingThresholds: HashMap<String, ArrayList<Float>>? = null,
+    var negativeCrossingThresholds: HashMap<String, ArrayList<Float>>? = null,
 ) : Parcelable {
     override fun describeContents(): Int = 0
 }
