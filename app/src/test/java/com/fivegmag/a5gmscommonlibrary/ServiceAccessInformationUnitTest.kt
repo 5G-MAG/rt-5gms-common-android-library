@@ -35,7 +35,7 @@ class ServiceAccessInformationUnitTest {
       },
       "clientConsumptionReportingConfiguration": {
         "serverAddresses": ["https://af.example/m5/consumption"], "accessReporting": true, "samplePercentage": 50.0,
-        "reportingInterval": 10, "locationReporting": false
+        "reportingInterval": 10
       },
       "dynamicPolicyInvocationConfiguration": {
         "serverAddresses": ["https://af.example/m5/dp"],
@@ -105,8 +105,15 @@ class ServiceAccessInformationUnitTest {
             ServiceAccessInformation::class.java
         )
         assertNotNull(sai.streamingAccess!!.entryPoints)
-        assertFalse(sai.locationReporting!!)
+        assertFalse(sai.locationReporting)
         assertNull(sai.dynamicPolicyInvocationConfiguration)
         assertNull(sai.networkAssistanceConfiguration)
+    }
+
+    // table 9.2.3.1-1: locationReporting is false when the resource omits it
+    @Test
+    fun locationReportingIsFalseWhenOmitted() {
+        val sai = Gson().fromJson("""{"provisioningSessionId":"p","provisioningSessionType":"DOWNLINK"}""", ServiceAccessInformation::class.java)
+        assertFalse(sai.locationReporting)
     }
 }

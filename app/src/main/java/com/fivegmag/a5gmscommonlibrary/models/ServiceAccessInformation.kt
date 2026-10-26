@@ -21,8 +21,10 @@ data class ServiceAccessInformation(
     val streamingAccess: StreamingAccess? = null,
     var clientConsumptionReportingConfiguration: ClientConsumptionReportingConfiguration?,
     var clientMetricsReportingConfigurations: ArrayList<ClientMetricsReportingConfiguration>?,
-    // TS 26.510 V19.2.0 table 9.2.3.1-1; the properties below are absent from the resource of a Media AF that does not offer them
-    val locationReporting: Boolean? = null,
+    // TS 26.510 V19.2.0 table 9.2.3.1-1 (1..1): false when the resource omits it; it governs the location data of consumption reporting too
+    // (the Client Consumption Reporting Configuration has no such property)
+    val locationReporting: Boolean = false,
+    // the properties below are absent from the resource of a Media AF that does not offer them
     // table 9.2.3.1-1 names the property notificationURL; a Media AF generated from the YAML of TS 26.510 spells it notficationURL
     @SerializedName("notificationURL", alternate = ["notficationURL"])
     val notificationURL: String? = null,
@@ -42,7 +44,6 @@ data class StreamingAccess(
 @Parcelize
 data class ClientConsumptionReportingConfiguration(
     val serverAddresses : ArrayList<String>,
-    val locationReporting: Boolean,
     val samplePercentage: Float,
     val reportingInterval: Int? = null,
     val accessReporting: Boolean
@@ -197,8 +198,9 @@ data class PolicyTemplateBinding(
     val downlinkTimeToNextBurstMarkingRequired: Boolean = false,
     val downlinkExpeditedTransferIndicationMarkingRequired: Boolean = false,
     val l4SEnablementPreference: Boolean = false,
-    val qoSMonitoringEnablementPreference: Boolean = false
-    // bdtWindows (TS 26.510 V19.2.0 BdtWindow) are not modelled
+    val qoSMonitoringEnablementPreference: Boolean = false,
+    // table 9.2.3.1-1: the Background Data Transfer windows that this policy template offers (BdtWindow, clause 7.3.3.14)
+    val bdtWindows: ArrayList<BdtWindow>? = null
 ) : Parcelable
 
 @Parcelize

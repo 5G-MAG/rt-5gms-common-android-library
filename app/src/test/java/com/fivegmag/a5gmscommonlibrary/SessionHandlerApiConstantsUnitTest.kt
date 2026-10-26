@@ -1,5 +1,6 @@
 package com.fivegmag.a5gmscommonlibrary
 
+import com.fivegmag.a5gmscommonlibrary.helpers.SessionHandlerBundleKeys
 import com.fivegmag.a5gmscommonlibrary.helpers.SessionHandlerEvents
 import com.fivegmag.a5gmscommonlibrary.helpers.SessionHandlerMessageTypes
 import com.fivegmag.a5gmscommonlibrary.helpers.SessionHandlingStates
@@ -33,5 +34,45 @@ class SessionHandlerApiConstantsUnitTest {
         assertEquals("METRICS_REPORTING_STOPPED", SessionHandlerEvents.MetricsReporting.METRICS_REPORTING_STOPPED)
         assertEquals("NEW_METRICS_REPORT", SessionHandlerEvents.MetricsReporting.NEW_METRICS_REPORT)
         assertEquals("ERROR_METRICS_REPORTING", SessionHandlerEvents.Error.ERROR_METRICS_REPORTING)
+    }
+
+    // TS 26.510 V19.2.0 tables 11.3.2-2 and 11.3.2-3: the names of the Dynamic Policy events and error events
+    @Test
+    fun dynamicPolicyNamesAreThoseOfTheSpecification() {
+        assertEquals("POLICY_ACTIVATED", SessionHandlerEvents.DynamicPolicy.POLICY_ACTIVATED)
+        assertEquals("POLICY_DEACTIVATED", SessionHandlerEvents.DynamicPolicy.POLICY_DEACTIVATED)
+        assertEquals("BACKGROUND_DATA_TRANSFER_OPPORTUNITY", SessionHandlerEvents.DynamicPolicy.BACKGROUND_DATA_TRANSFER_OPPORTUNITY)
+        assertEquals("L4S_ENABLED", SessionHandlerEvents.DynamicPolicy.L4S_ENABLED)
+        assertEquals("QOS_MONITORING_ENABLED", SessionHandlerEvents.DynamicPolicy.QOS_MONITORING_ENABLED)
+        assertEquals("QOS_MONITORING_RESULTS", SessionHandlerEvents.DynamicPolicy.QOS_MONITORING_RESULTS)
+        assertEquals("ERROR_INVALID_SERVICE_OPERATION_POINT", SessionHandlerEvents.Error.ERROR_INVALID_SERVICE_OPERATION_POINT)
+        assertEquals("ERROR_UNAUTHORISED", SessionHandlerEvents.Error.ERROR_UNAUTHORISED)
+        assertEquals("ERROR_BACKGROUND_DATA_TRANSFER", SessionHandlerEvents.Error.ERROR_BACKGROUND_DATA_TRANSFER)
+    }
+
+    // Tables 11.4.2-2 and 11.4.2-3
+    @Test
+    fun networkAssistanceNamesAreThoseOfTheSpecification() {
+        assertEquals("BIT_RATE_RECOMMENDATION", SessionHandlerEvents.NetworkAssistance.BIT_RATE_RECOMMENDATION)
+        assertEquals("ERROR_BIT_RATE_RECOMMENDATION", SessionHandlerEvents.Error.ERROR_BIT_RATE_RECOMMENDATION)
+        assertEquals("ERROR_DELIVERY_BOOST", SessionHandlerEvents.Error.ERROR_DELIVERY_BOOST)
+    }
+
+    // Every method of clauses 11.3.1 and 11.4.1 has a message and a reply
+    @Test
+    fun everyMethodHasAMessageAndAReply() {
+        val names = SessionHandlerMessageTypes::class.java.declaredFields.filter { it.type == Int::class.javaPrimitiveType }.map { it.name }.toSet()
+        for (method in listOf("GET_BDT_INFO", "ACTIVATE_POLICY", "DEACTIVATE_POLICY", "GET_DYNAMIC_POLICY_STATUS",
+            "REQUEST_BIT_RATE_RECOMMENDATION", "REQUEST_DELIVERY_BOOST", "GET_SERVICE_OPERATION_POINTS")) {
+            assertEquals("$method", true, names.contains(method))
+            assertEquals("${method}_REPLY", true, names.contains(method + "_REPLY"))
+        }
+    }
+
+    @Test
+    fun targetBitRateKeysAreDistinctFromTheReturnedOnes() {
+        assertEquals("targetDownlinkBitRate", SessionHandlerBundleKeys.TARGET_DOWNLINK_BIT_RATE)
+        assertEquals("targetUplinkBitRate", SessionHandlerBundleKeys.TARGET_UPLINK_BIT_RATE)
+        assertEquals(false, SessionHandlerBundleKeys.TARGET_DOWNLINK_BIT_RATE == SessionHandlerBundleKeys.RECOMMENDED_DOWNLINK_BIT_RATE)
     }
 }
