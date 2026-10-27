@@ -82,6 +82,10 @@ object SessionHandlerMessageTypes {
     const val REQUEST_BIT_RATE_RECOMMENDATION_REPLY = 38
     const val REQUEST_DELIVERY_BOOST = 39
     const val REQUEST_DELIVERY_BOOST_REPLY = 40
+
+    // The Media Session Handler tells the Media Stream Handler whether the UE is inside the locationFilter of a CMCD metrics reporting
+    // configuration (TS 26.510 V19.2.0 table 8.7.3.1-1); the bundle has the configuration identifier and LOCATED
+    const val CMCD_LOCATION_UPDATE = 41
 }
 
 // Table 11.2.3-1: sessionHandlingState
@@ -124,6 +128,7 @@ object SessionHandlerBundleKeys {
     const val METRICS_REPORT = "metricsReport"
     const val PROVISIONING_SESSION_ID = "provisioningSessionId"
     const val METRICS_REPORTING_CONFIGURATION_ID = "metricsReportingConfigurationId"
+    const val LOCATED = "located"
     const val SCHEME = "scheme"
     const val SERVER_ADDRESS = "serverAddress"
     const val HTTP_RESPONSE_CODE = "httpResponseCode"
