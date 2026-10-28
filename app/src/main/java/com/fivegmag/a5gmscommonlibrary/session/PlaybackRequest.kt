@@ -12,5 +12,5 @@ data class PlaybackRequest(
     val consumptionRequest: ConsumptionRequest,
     val qoeMetricsRequests: ArrayList<QoeMetricsRequest>,
     val mediaStreamingSessionIdentifier: String,
-    val mediaDeliverySessionId: String = mediaStreamingSessionIdentifier
+    val mediaDeliverySessionId: String
 ) : Parcelable
