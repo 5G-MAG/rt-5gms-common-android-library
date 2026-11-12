@@ -23,7 +23,7 @@ data class ConsumptionReport(
     val mediaPlayerEntry: String,
     val reportingClientId: String,
     val consumptionReportingUnits: ArrayList<ConsumptionReportingUnit>,
-    val sessionId: String? = null
+    val sessionId: String
 ) : Parcelable
 
 @Parcelize
