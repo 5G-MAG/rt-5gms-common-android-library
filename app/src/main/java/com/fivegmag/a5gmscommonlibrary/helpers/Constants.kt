@@ -40,6 +40,7 @@ object SessionHandlerMessageTypes {
     const val UPDATE_PLAYBACK_CONSUMPTION_REPORTING_CONFIGURATION = 12
     const val GET_QOE_METRICS_REPORT = 13
     const val REPORT_QOE_METRICS = 14
+    const val END_MEDIA_DELIVERY_SESSION = 15
 }
 
 object SessionHandlerEvents {
