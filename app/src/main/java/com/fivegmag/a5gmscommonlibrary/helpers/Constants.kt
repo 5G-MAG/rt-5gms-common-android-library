@@ -92,6 +92,11 @@ object SessionHandlerMessageTypes {
     // client it is served for the sender; the reply carries no media delivery session identifier (clause 5.4.2.2).
     const val LAUNCH_SERVICE_URL = 42
     const val LAUNCH_SERVICE_URL_REPLY = 43
+
+    // A client metrics reporting configuration of the Service Access Information changed during the media delivery session (TS 26.510 V19.2.0
+    // clause 5.3.5.1): the Media Session Handler gives the Media Stream Handler the CMCD configurations in force as a list of QoeMetricsRequest
+    // in CMCD_CONFIGURATIONS
+    const val CMCD_CONFIGURATION_UPDATE = 44
 }
 
 // Table 11.2.3-1: sessionHandlingState
@@ -138,6 +143,7 @@ object SessionHandlerBundleKeys {
     const val PROVISIONING_SESSION_ID = "provisioningSessionId"
     const val METRICS_REPORTING_CONFIGURATION_ID = "metricsReportingConfigurationId"
     const val LOCATED = "located"
+    const val CMCD_CONFIGURATIONS = "cmcdConfigurations"
     const val SCHEME = "scheme"
     const val SERVER_ADDRESS = "serverAddress"
     const val HTTP_RESPONSE_CODE = "httpResponseCode"

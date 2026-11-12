@@ -21,5 +21,7 @@ data class PlaybackRequest(
     val deliveryProtocols: ArrayList<String>? = null,
     val multipathMode: String? = null,
     /** The mode of in-band client data reporting that the 3GPP Service URL gave (ClientDataReportingModes, TS 26.512 V19.3.0 table 12.4-1); null if it gave none */
-    val clientDataReportingMode: String? = null
+    val clientDataReportingMode: String? = null,
+    /** The client data reporting for CMCD that the Media Player Entry (the manifest) declares; null if it declares none */
+    val clientDataReporting: ArrayList<ClientDataReportingEntry>? = null
 ) : Parcelable

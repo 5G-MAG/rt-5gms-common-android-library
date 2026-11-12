@@ -83,4 +83,12 @@ class SessionHandlerApiConstantsUnitTest {
         assertEquals("5GMSMediaSessionHandler/19.3.0", UserAgentTokens.FIVE_G_MS_MEDIA_SESSION_HANDLER)
         assertEquals("5GMSMediaStreamHandler/19.3.0", UserAgentTokens.FIVE_G_MS_MEDIA_STREAM_HANDLER)
     }
+
+    // TS 26.510 V19.2.0 clause 5.3.5.1: a changed client metrics reporting configuration reaches the Media Stream Handler by its own message
+    @Test
+    fun aCmcdConfigurationUpdateHasItsOwnMessageAndKey() {
+        assertEquals(44, SessionHandlerMessageTypes.CMCD_CONFIGURATION_UPDATE)
+        assertEquals(false, SessionHandlerMessageTypes.CMCD_CONFIGURATION_UPDATE == SessionHandlerMessageTypes.CMCD_LOCATION_UPDATE)
+        assertEquals("cmcdConfigurations", SessionHandlerBundleKeys.CMCD_CONFIGURATIONS)
+    }
 }

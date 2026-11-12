@@ -2,6 +2,7 @@ package com.fivegmag.a5gmscommonlibrary
 
 import com.fivegmag.a5gmscommonlibrary.consumptionReporting.ConsumptionRequest
 import com.fivegmag.a5gmscommonlibrary.helpers.ClientDataReportingModes
+import com.fivegmag.a5gmscommonlibrary.session.ClientDataReportingEntry
 import com.fivegmag.a5gmscommonlibrary.session.PlaybackRequest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -26,5 +27,14 @@ class PlaybackRequestUnitTest {
     @Test
     fun withoutAModeTheFieldIsNull() {
         assertNull(request().clientDataReportingMode)
+    }
+
+    @Test
+    fun aPlaybackRequestCarriesTheClientDataReportingOfTheMediaPlayerEntry() {
+        val entry = ClientDataReportingEntry(arrayListOf("http://as.example/dist1/"), arrayListOf("v"), ClientDataReportingModes.CMCD_HEADERS, "s1", "c1", arrayListOf("br", "bl"))
+        val request = PlaybackRequest(ArrayList(), ConsumptionRequest(), ArrayList(), "s", clientDataReporting = arrayListOf(entry))
+        assertEquals(entry, request.clientDataReporting!!.single())
+        assertNull(request().clientDataReporting)
+        assertNull(ClientDataReportingEntry().serviceLocationUrls)
     }
 }
