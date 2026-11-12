@@ -28,17 +28,13 @@ data class ServiceAccessInformation(
     // table 9.2.3.1-1 names the property notificationURL; a Media AF generated from the YAML of TS 26.510 spells it notficationURL
     @SerializedName("notificationURL", alternate = ["notficationURL"])
     val notificationURL: String? = null,
-    val rtcClientConfiguration: RtcClientConfiguration? = null,
     val dynamicPolicyInvocationConfiguration: DynamicPolicyInvocationConfiguration? = null,
-    val networkAssistanceConfiguration: NetworkAssistanceConfiguration? = null,
-    val clientEdgeResourcesConfiguration: ClientEdgeResourcesConfiguration? = null
+    val networkAssistanceConfiguration: NetworkAssistanceConfiguration? = null
 ) : Parcelable
 
 @Parcelize
 data class StreamingAccess(
-    val entryPoints: ArrayList<EntryPoint>?,
-    val eMBMSServiceAnnouncementLocator: String? = null,
-    val mbsExternalServiceIdentifier: String? = null
+    val entryPoints: ArrayList<EntryPoint>?
 ) : Parcelable
 
 @Parcelize
@@ -169,27 +165,6 @@ data class Snssai(
 ) : Parcelable
 
 @Parcelize
-data class ClientServiceEndpointCredentials(
-    val username: String,
-    val passphrase: String
-) : Parcelable
-
-/** EndpointAddress with the credentials of a ClientServiceEndpointAccessParameters */
-@Parcelize
-data class ClientServiceEndpointAccessParameters(
-    val domainName: String? = null,
-    val portNumbers: List<Int>? = null,
-    val credentials: ClientServiceEndpointCredentials? = null
-) : Parcelable
-
-@Parcelize
-data class RtcClientConfiguration(
-    val stunEndpoints: ArrayList<ClientServiceEndpointAccessParameters>? = null,
-    val turnEndpoints: ArrayList<ClientServiceEndpointAccessParameters>? = null,
-    val swapEndpoints: ArrayList<ClientServiceEndpointAccessParameters>? = null
-) : Parcelable
-
-@Parcelize
 data class PolicyTemplateBinding(
     val externalReference: String,
     val policyTemplateId: String,
@@ -213,25 +188,4 @@ data class DynamicPolicyInvocationConfiguration(
 @Parcelize
 data class NetworkAssistanceConfiguration(
     val serverAddresses: ArrayList<String>
-) : Parcelable
-
-@Parcelize
-data class EasDiscoveryTemplate(
-    val easId: String? = null,
-    val easType: String? = null,
-    val easProviderIds: ArrayList<String>? = null,
-    val easFeatures: ArrayList<String>? = null
-) : Parcelable
-
-@Parcelize
-data class ClientEasRelocationRequirements(
-    val tolerance: String,
-    val maxInterruptionDuration: Int? = null
-) : Parcelable
-
-@Parcelize
-data class ClientEdgeResourcesConfiguration(
-    val easDiscoveryTemplate: EasDiscoveryTemplate,
-    val easRelocationRequirements: ClientEasRelocationRequirements? = null
-    // eligibilityCriteria (EdgeProcessingEligibilityCriteria) is not modelled
 ) : Parcelable

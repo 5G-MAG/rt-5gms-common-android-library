@@ -4,6 +4,7 @@ import com.fivegmag.a5gmscommonlibrary.helpers.SessionHandlerBundleKeys
 import com.fivegmag.a5gmscommonlibrary.helpers.SessionHandlerEvents
 import com.fivegmag.a5gmscommonlibrary.helpers.SessionHandlerMessageTypes
 import com.fivegmag.a5gmscommonlibrary.helpers.SessionHandlingStates
+import com.fivegmag.a5gmscommonlibrary.helpers.UserAgentTokens
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -74,5 +75,12 @@ class SessionHandlerApiConstantsUnitTest {
         assertEquals("targetDownlinkBitRate", SessionHandlerBundleKeys.TARGET_DOWNLINK_BIT_RATE)
         assertEquals("targetUplinkBitRate", SessionHandlerBundleKeys.TARGET_UPLINK_BIT_RATE)
         assertEquals(false, SessionHandlerBundleKeys.TARGET_DOWNLINK_BIT_RATE == SessionHandlerBundleKeys.RECOMMENDED_DOWNLINK_BIT_RATE)
+    }
+
+    // TS 26.512 V19.3.0 clauses 6.2.3.2.2 and 6.2.3.2.3: the product token names the Handler and carries the version of the specification
+    @Test
+    fun userAgentTokensCarryTheReleaseOfTheSpecification() {
+        assertEquals("5GMSMediaSessionHandler/19.3.0", UserAgentTokens.FIVE_G_MS_MEDIA_SESSION_HANDLER)
+        assertEquals("5GMSMediaStreamHandler/19.3.0", UserAgentTokens.FIVE_G_MS_MEDIA_STREAM_HANDLER)
     }
 }

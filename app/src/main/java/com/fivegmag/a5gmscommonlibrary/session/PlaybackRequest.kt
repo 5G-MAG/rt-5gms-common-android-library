@@ -15,5 +15,11 @@ data class PlaybackRequest(
     /** The media delivery session identifier (TS 26.510 V19.2.0 clause 7.3.2): the CMCD sid key (TS 26.512 V19.3.0 clause 10.5.1) */
     val mediaDeliverySessionIdentifier: String? = null,
     /** The content identifier of the media being consumed, if the application gave one: the CMCD cid key */
-    val contentIdentifier: String? = null
+    val contentIdentifier: String? = null,
+    /** The content delivery protocols (DeliveryProtocols), most preferred first, and the multipath preference (MultipathModes) that the 3GPP Service URL
+     *  of an implicit launch gave: desiredContentDeliveryConfiguration of the Media Player (TS 26.512 V19.3.0 clause 4.9.1A); null if it gave none */
+    val deliveryProtocols: ArrayList<String>? = null,
+    val multipathMode: String? = null,
+    /** The mode of in-band client data reporting that the 3GPP Service URL gave (ClientDataReportingModes, TS 26.512 V19.3.0 table 12.4-1); null if it gave none */
+    val clientDataReportingMode: String? = null
 ) : Parcelable

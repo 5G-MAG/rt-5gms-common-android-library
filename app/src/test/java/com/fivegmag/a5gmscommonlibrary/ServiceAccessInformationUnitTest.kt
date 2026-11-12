@@ -17,21 +17,14 @@ class ServiceAccessInformationUnitTest {
     private val full = """
     {
       "provisioningSessionId": "ps1",
-      "provisioningSessionType": "DOWNLINK",
+      "provisioningSessionType": "MS_DOWNLINK",
       "locationReporting": true,
       "notficationURL": "http://af.example/notify",
       "streamingAccess": {
         "entryPoints": [
           {"locator": "https://m4.example/a.mpd", "contentType": "application/dash+xml", "profiles": ["urn:p"]},
           {"locator": "https://m4.example/b", "protocol": "urn:3gpp:5gms:content-protocol:http-pull"}
-        ],
-        "eMBMSServiceAnnouncementLocator": "https://sa.example/usd",
-        "mbsExternalServiceIdentifier": "mbs-1"
-      },
-      "rtcClientConfiguration": {
-        "stunEndpoints": [{"domainName": "stun.example", "portNumbers": [3478]}],
-        "turnEndpoints": [{"domainName": "turn.example", "portNumbers": [3478],
-                           "credentials": {"username": "u", "passphrase": "p"}}]
+        ]
       },
       "clientConsumptionReportingConfiguration": {
         "serverAddresses": ["https://af.example/m5/consumption"], "accessReporting": true, "samplePercentage": 50.0,
@@ -51,11 +44,7 @@ class ServiceAccessInformationUnitTest {
          "sliceScope": [{"sst": 1, "sd": "000001"}], "reportingStartOffset": 2, "reportingDuration": 60,
          "positiveCrossingThresholds": {"bitrate": [1.5, 2.5]}, "negativeCrossingThresholds": {"bitrate": [0.5]}}
       ],
-      "networkAssistanceConfiguration": {"serverAddresses": ["https://af.example/m5/na"]},
-      "clientEdgeResourcesConfiguration": {
-        "easDiscoveryTemplate": {"easId": "eas1", "easFeatures": ["f"]},
-        "easRelocationRequirements": {"tolerance": "TOLERATE", "maxInterruptionDuration": 3}
-      }
+      "networkAssistanceConfiguration": {"serverAddresses": ["https://af.example/m5/na"]}
     }
     """
 
@@ -63,7 +52,7 @@ class ServiceAccessInformationUnitTest {
     // table 9.2.3.1-1: streamingAccess is 0..1
     @Test
     fun streamingAccessMayBeAbsent() {
-        val sai = Gson().fromJson("""{"provisioningSessionId":"ps1","provisioningSessionType":"DOWNLINK"}""", ServiceAccessInformation::class.java)
+        val sai = Gson().fromJson("""{"provisioningSessionId":"ps1","provisioningSessionType":"MS_DOWNLINK"}""", ServiceAccessInformation::class.java)
         assertNull(sai.streamingAccess)
     }
 
@@ -78,12 +67,8 @@ class ServiceAccessInformationUnitTest {
         val sai = Gson().fromJson(full, ServiceAccessInformation::class.java)
         assertEquals(true, sai.locationReporting)
         assertEquals("http://af.example/notify", sai.notificationURL)
-        assertEquals("https://sa.example/usd", sai.streamingAccess!!.eMBMSServiceAnnouncementLocator)
-        assertEquals("mbs-1", sai.streamingAccess!!.mbsExternalServiceIdentifier)
         assertEquals("urn:3gpp:5gms:content-protocol:http-pull", sai.streamingAccess!!.entryPoints!![1].protocol)
         assertNull(sai.streamingAccess!!.entryPoints!![1].contentType)
-        assertEquals("u", sai.rtcClientConfiguration!!.turnEndpoints!![0].credentials!!.username)
-        assertEquals(listOf(3478), sai.rtcClientConfiguration!!.stunEndpoints!![0].portNumbers)
         val dp = sai.dynamicPolicyInvocationConfiguration!!
         assertEquals("t1", dp.policyTemplateBindings[0].policyTemplateId)
         assertTrue(dp.policyTemplateBindings[0].pduSetMarking)
@@ -93,14 +78,24 @@ class ServiceAccessInformationUnitTest {
         assertEquals(60L, metrics.reportingDuration)
         assertEquals(listOf(1.5f, 2.5f), metrics.positiveCrossingThresholds!!["bitrate"])
         assertEquals("https://af.example/m5/na", sai.networkAssistanceConfiguration!!.serverAddresses[0])
-        assertEquals("eas1", sai.clientEdgeResourcesConfiguration!!.easDiscoveryTemplate.easId)
-        assertEquals(3, sai.clientEdgeResourcesConfiguration!!.easRelocationRequirements!!.maxInterruptionDuration)
+    }
+
+    // the features that this client does not use (RTC, Edge, eMBMS, MBS) are not modelled: a resource that offers them still parses
+    @Test
+    fun propertiesOfFeaturesThatTheClientDoesNotUseAreIgnored() {
+        val extra = full.replace("\"networkAssistanceConfiguration\"", """
+            "rtcClientConfiguration": {"stunEndpoints": [{"domainName": "stun.example", "portNumbers": [3478]}]},
+            "clientEdgeResourcesConfiguration": {"easDiscoveryTemplate": {"easId": "eas1"}},
+            "networkAssistanceConfiguration"""")
+        val sai = Gson().fromJson(extra, ServiceAccessInformation::class.java)
+        assertEquals("ps1", sai.provisioningSessionId)
+        assertEquals("https://af.example/m5/na", sai.networkAssistanceConfiguration!!.serverAddresses[0])
     }
 
     @Test
     fun aResourceWithoutTheNewPropertiesParses() {
         val sai = Gson().fromJson(
-            """{"provisioningSessionId":"p","provisioningSessionType":"DOWNLINK","locationReporting":false,
+            """{"provisioningSessionId":"p","provisioningSessionType":"MS_DOWNLINK","locationReporting":false,
                 "streamingAccess":{"entryPoints":[{"locator":"https://x/a.mpd","contentType":"application/dash+xml"}]}}""",
             ServiceAccessInformation::class.java
         )
@@ -113,7 +108,7 @@ class ServiceAccessInformationUnitTest {
     // table 9.2.3.1-1: locationReporting is false when the resource omits it
     @Test
     fun locationReportingIsFalseWhenOmitted() {
-        val sai = Gson().fromJson("""{"provisioningSessionId":"p","provisioningSessionType":"DOWNLINK"}""", ServiceAccessInformation::class.java)
+        val sai = Gson().fromJson("""{"provisioningSessionId":"p","provisioningSessionType":"MS_DOWNLINK"}""", ServiceAccessInformation::class.java)
         assertFalse(sai.locationReporting)
     }
 }

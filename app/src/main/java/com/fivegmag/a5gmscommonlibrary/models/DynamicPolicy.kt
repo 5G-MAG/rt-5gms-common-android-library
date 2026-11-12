@@ -27,7 +27,11 @@ data class IpPacketFilterSet(
     val destinationAddress: IpAddr? = null,
     val protocolNumber: Int? = null,
     val sourcePort: Int? = null,
-    val destinationPort: Int? = null
+    val destinationPort: Int? = null,
+    // TS 26.510 V19.2.0 table 7.3.3.1-1
+    val differentiatedServicesCodePoint: Int? = null,
+    val flowLabel: Int? = null,
+    val securityParametersIndex: Long? = null
 ) : Parcelable
 
 /** ApplicationFlowDescription (table 7.3.3.2-1); exactly one of packetFilter and domainName is populated */
@@ -53,7 +57,11 @@ data class ClientPolicySpecification(
     val downlinkBitRates: UnidirectionalBitRateSpecification,
     val uplinkBitRates: UnidirectionalBitRateSpecification,
     val l4SRequired: Boolean? = null,
-    val qoSMonitoringRequired: Boolean? = null
+    val qoSMonitoringRequired: Boolean? = null,
+    // TS 26.510 V19.2.0 table 7.3.3.6-1: the desired packet latency (ms) and packet loss rate (tenths of a percent), and expedited transfer
+    val desiredPacketLatency: Int? = null,
+    val desiredPacketLossRate: Int? = null,
+    val downlinkExpeditedTransferIndication: Boolean? = null
 ) : Parcelable
 
 /** UsageThreshold (TS 29.122 clause 5.2.1.2.9), of which the volume in bytes is used */

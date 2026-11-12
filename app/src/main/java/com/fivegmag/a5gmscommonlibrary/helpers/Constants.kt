@@ -86,6 +86,12 @@ object SessionHandlerMessageTypes {
     // The Media Session Handler tells the Media Stream Handler whether the UE is inside the locationFilter of a CMCD metrics reporting
     // configuration (TS 26.510 V19.2.0 table 8.7.3.1-1); the bundle has the configuration identifier and LOCATED
     const val CMCD_LOCATION_UPDATE = 41
+
+    // The implicit service launch (TS 26.510 V19.2.0 clause 5.4.2.2, clause 6): the application hands a 3GPP Service URL to the Media Session
+    // Handler and gets the HTTP status code of TS 26.512 V19.3.0 clause 4.8.3.4 in HTTP_RESPONSE_CODE. Like any media delivery session of the
+    // client it is served for the sender; the reply carries no media delivery session identifier (clause 5.4.2.2).
+    const val LAUNCH_SERVICE_URL = 42
+    const val LAUNCH_SERVICE_URL_REPLY = 43
 }
 
 // Table 11.2.3-1: sessionHandlingState
@@ -107,6 +113,9 @@ object SessionHandlerBundleKeys {
     const val EVENT = "event"
     const val MEDIA_ENTRY_POINT_URL = "mediaEntryPointUrl"
     const val STREAMING_ACCESS = "streamingAccess"
+
+    // LAUNCH_SERVICE_URL: the 3GPP Service URL (TS 26.510 V19.2.0 clause 6.2)
+    const val SERVICE_URL = "serviceUrl"
 
     // Every message of a Media Stream Handler instance carries the identifier of the instance: an application may run several
     // instances, one per media delivery session (TS 26.510 V19.2.0 clause 11.2.2.1 creates a new media delivery session on each call)
@@ -225,6 +234,18 @@ object SessionHandlerEvents {
     }
 }
 
+// TS 26.512 V19.3.0 tables 13.2.4-4 and 13.2.4-5: the content delivery protocols and the multipath preference of desiredContentDeliveryConfiguration
+object DeliveryProtocols {
+    const val HTTP_1_1 = "DELIVERY_PROTOCOL_HTTP_1_1"
+    const val HTTP_2 = "DELIVERY_PROTOCOL_HTTP_2"
+    const val HTTP_3 = "DELIVERY_PROTOCOL_HTTP_3"
+}
+
+object MultipathModes {
+    const val PREFERRED = "MULTIPATH_PREFERRED"
+    const val NOT_PREFERRED = "MULTIPATH_NOT_PREFERRED"
+}
+
 object ContentTypes {
     const val DASH = "application/dash+xml"
     const val HLS = "application/vnd.apple.mpegurl"
@@ -234,9 +255,10 @@ object ContentTypes {
     const val QOE_REPORT_XML = "application/3gpdash-qoe-report+xml"
 }
 
+/** TS 26.512 V19.3.0 clauses 6.2.3.2.2 and 6.2.3.2.3: the product token with the version of the specification the implementation complies with */
 object UserAgentTokens {
-    const val FIVE_G_MS_REL_17_MEDIA_STREAM_HANDLER = "5GMSMediaStreamHandler/17"
-    const val FIVE_G_MS_REL_17_MEDIA_SESSION_HANDLER = "5GMSMediaSessionHandler/17"
+    const val FIVE_G_MS_MEDIA_STREAM_HANDLER = "5GMSMediaStreamHandler/19.3.0"
+    const val FIVE_G_MS_MEDIA_SESSION_HANDLER = "5GMSMediaSessionHandler/19.3.0"
 }
 
 object HostInfoTypes {
@@ -259,6 +281,12 @@ object CmcdSchemes {
         REQUEST to setOf("bl", "dl", "mtp", "nor", "nrr", "su"),
         STATUS to setOf("bs", "rtp")
     )
+}
+
+// TS 26.512 V19.3.0 table 12.4-1: the values of the client-data-reporting-mode parameter of the 3GPP Service URL
+object ClientDataReportingModes {
+    const val CMCD_HEADERS = "cmcd-headers"
+    const val CMCD_QUERY = "cmcd-query"
 }
 
 object MetricReportingSchemes {

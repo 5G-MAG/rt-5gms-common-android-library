@@ -89,4 +89,22 @@ class DynamicPolicyModelsUnitTest {
         assertTrue(written.contains("downlinkBitRates"))
         assertFalse(written.contains("l4SRequired"))
     }
+
+    // TS 26.510 V19.2.0 tables 7.3.3.1-1 and 7.3.3.6-1: the optional properties are read and written with the names of the specification
+    @Test
+    fun optionalPropertiesOfTheFlowAndOfTheClientPolicyAreKept() {
+        val json = """{"downlinkBitRates":{"maximumRequestedBitRate":"5 Mbps","minimumDesiredBitRate":"2 Mbps","minimumRequestedBitRate":"1 Mbps"},
+            "uplinkBitRates":{"maximumRequestedBitRate":"1 Mbps","minimumDesiredBitRate":"1 Mbps","minimumRequestedBitRate":"1 Mbps"},
+            "desiredPacketLatency":20,"desiredPacketLossRate":5,"downlinkExpeditedTransferIndication":true}"""
+        val spec = gson.fromJson(json, ClientPolicySpecification::class.java)
+        assertEquals(20, spec.desiredPacketLatency)
+        assertEquals(5, spec.desiredPacketLossRate)
+        assertTrue(spec.downlinkExpeditedTransferIndication!!)
+        assertTrue(gson.toJson(spec).contains("\"downlinkExpeditedTransferIndication\":true"))
+        val filter = gson.fromJson("""{"direction":"DOWNLINK","differentiatedServicesCodePoint":46,"flowLabel":7,"securityParametersIndex":4294967295}""",
+            com.fivegmag.a5gmscommonlibrary.models.IpPacketFilterSet::class.java)
+        assertEquals(46, filter.differentiatedServicesCodePoint)
+        assertEquals(7, filter.flowLabel)
+        assertEquals(4294967295L, filter.securityParametersIndex)
+    }
 }
