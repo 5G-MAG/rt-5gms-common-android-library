@@ -97,6 +97,17 @@ object SessionHandlerMessageTypes {
     // clause 5.3.5.1): the Media Session Handler gives the Media Stream Handler the CMCD configurations in force as a list of QoeMetricsRequest
     // in CMCD_CONFIGURATIONS
     const val CMCD_CONFIGURATION_UPDATE = 44
+
+    // The Media Session Handler interrogates the capabilities of the Media Player (TS 26.512 V19.3.0 clause 4.7.3, table 13.2.4-1 property
+    // capabilities): the request carries the media delivery session identifier, the reply the capabilities in CAPABILITIES (MediaPlayerCapabilities)
+    const val GET_PLAYER_CAPABILITIES = 45
+    const val GET_PLAYER_CAPABILITIES_REPLY = 46
+
+    // The Media Access Function (the Media Player or the application that drives it) tells the Media Session Handler that the Service Operation
+    // Point changed (TS 26.510 V19.2.0 clause 5.4.3, TS 26.512 V19.3.0 table 13.2.5-1 OPERATION_POINT_CHANGED): the bundle has the media delivery
+    // session identifier, the external reference of the new Service Operation Point in SERVICE_OPERATION_POINT_REFERENCE and, as the target QoS
+    // parameters of clause 5.4.3, TARGET_DOWNLINK_BIT_RATE and TARGET_UPLINK_BIT_RATE
+    const val OPERATION_POINT_CHANGED = 47
 }
 
 // Table 11.2.3-1: sessionHandlingState
@@ -148,6 +159,9 @@ object SessionHandlerBundleKeys {
     const val SERVER_ADDRESS = "serverAddress"
     const val HTTP_RESPONSE_CODE = "httpResponseCode"
     const val ERROR_MESSAGE = "errorMessage"
+
+    // GET_PLAYER_CAPABILITIES_REPLY: the capabilities of the Media Player as a list of the names of MediaPlayerCapabilities (table 13.2.4-1)
+    const val CAPABILITIES = "capabilities"
 
     // Clause 11.3: the input parameters (tables 11.3.1.1-1, 11.3.1.2-1, 11.3.1.3-1), the return values (tables 11.3.1.1-2, 11.3.1.2-2,
     // 11.3.1.3-2), the status (table 11.3.2-1) and the payloads of the events (tables 11.3.2-2, 11.3.2-3)
@@ -238,6 +252,12 @@ object SessionHandlerEvents {
         const val ERROR_CONSUMPTION_REPORTING = "ERROR_CONSUMPTION_REPORTING"
         const val ERROR_METRICS_REPORTING = "ERROR_METRICS_REPORTING"
     }
+}
+
+// TS 26.512 V19.3.0 table 13.2.4-2: the Media Player capabilities enumeration
+object MediaPlayerCapabilities {
+    const val CAPABILITY_L4S = "CAPABILITY_L4S"
+    const val CAPABILITY_QOS = "CAPABILITY_QOS"
 }
 
 // TS 26.512 V19.3.0 tables 13.2.4-4 and 13.2.4-5: the content delivery protocols and the multipath preference of desiredContentDeliveryConfiguration

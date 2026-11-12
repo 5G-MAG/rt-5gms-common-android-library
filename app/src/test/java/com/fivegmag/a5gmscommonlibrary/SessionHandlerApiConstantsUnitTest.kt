@@ -1,5 +1,6 @@
 package com.fivegmag.a5gmscommonlibrary
 
+import com.fivegmag.a5gmscommonlibrary.helpers.MediaPlayerCapabilities
 import com.fivegmag.a5gmscommonlibrary.helpers.SessionHandlerBundleKeys
 import com.fivegmag.a5gmscommonlibrary.helpers.SessionHandlerEvents
 import com.fivegmag.a5gmscommonlibrary.helpers.SessionHandlerMessageTypes
@@ -90,5 +91,21 @@ class SessionHandlerApiConstantsUnitTest {
         assertEquals(44, SessionHandlerMessageTypes.CMCD_CONFIGURATION_UPDATE)
         assertEquals(false, SessionHandlerMessageTypes.CMCD_CONFIGURATION_UPDATE == SessionHandlerMessageTypes.CMCD_LOCATION_UPDATE)
         assertEquals("cmcdConfigurations", SessionHandlerBundleKeys.CMCD_CONFIGURATIONS)
+    }
+
+    // TS 26.512 V19.3.0 table 13.2.4-2: the names of the capabilities are those of the specification; the interrogation has a message and a reply
+    @Test
+    fun theCapabilitiesAreNamedAsInTable13_2_4_2() {
+        assertEquals("CAPABILITY_L4S", MediaPlayerCapabilities.CAPABILITY_L4S)
+        assertEquals("CAPABILITY_QOS", MediaPlayerCapabilities.CAPABILITY_QOS)
+        assertEquals("capabilities", SessionHandlerBundleKeys.CAPABILITIES)
+        assertEquals(45, SessionHandlerMessageTypes.GET_PLAYER_CAPABILITIES)
+        assertEquals(46, SessionHandlerMessageTypes.GET_PLAYER_CAPABILITIES_REPLY)
+    }
+
+    // TS 26.512 V19.3.0 table 13.2.5-1: the notification of a change of the Service Operation Point has a message of its own
+    @Test
+    fun aChangeOfTheServiceOperationPointHasAMessage() {
+        assertEquals(47, SessionHandlerMessageTypes.OPERATION_POINT_CHANGED)
     }
 }
