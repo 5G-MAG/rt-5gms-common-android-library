@@ -105,7 +105,8 @@ data class QosMonitoringReport(
 
 /**
  * DynamicPolicy (TS 26.510 V19.2.0 table 9.3.3.1-1). dynamicPolicyId, provisioningSessionId, qosEnforcement, l4SEnabled, qoSMonitoringEnabled and
- * qoSMonitoringResults are read-only: the Media AF populates them, and a request leaves them out. sliceInfo is not modelled.
+ * qoSMonitoringResults are read-only: the Media AF populates them, and a request leaves them out. sliceInfo is not modelled. location is the
+ * location of the UE when the policy was created or last updated.
  */
 @Parcelize
 data class DynamicPolicy(
@@ -119,7 +120,8 @@ data class DynamicPolicy(
     val qosEnforcement: Boolean? = null,
     val l4SEnabled: Boolean? = null,
     val qoSMonitoringEnabled: Boolean? = null,
-    val qoSMonitoringResults: QosMonitoringReport? = null
+    val qoSMonitoringResults: QosMonitoringReport? = null,
+    val location: TypedLocation? = null
 ) : Parcelable
 
 /**
@@ -139,7 +141,8 @@ data class DynamicPolicyStatus(
 
 /**
  * NetworkAssistanceSession (table 9.4.3.1-1). naSessionId, provisioningSessionId and recommendedQoS are read-only. mediaTransportParameters
- * are omitted in a Network Assistance Session (clause 5.3.4.2); sliceInfo, location and dataNetworkName are not modelled.
+ * are omitted in a Network Assistance Session (clause 5.3.4.2); sliceInfo and dataNetworkName are not modelled. location is the location of the
+ * UE when the session was created or last updated.
  */
 @Parcelize
 data class NetworkAssistanceSession(
@@ -150,7 +153,8 @@ data class NetworkAssistanceSession(
     val policyTemplateId: String? = null,
     val componentReference: String? = null,
     val requestedQoS: ClientPolicySpecification? = null,
-    val recommendedQoS: ClientPolicySpecification? = null
+    val recommendedQoS: ClientPolicySpecification? = null,
+    val location: TypedLocation? = null
 ) : Parcelable
 
 /** OperationSuccessResponse (table 7.3.3.9-1) */

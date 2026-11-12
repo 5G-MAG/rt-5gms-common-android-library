@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonFilter
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fivegmag.a5gmscommonlibrary.models.EndpointAddress
+import com.fivegmag.a5gmscommonlibrary.models.Snssai
 import com.fivegmag.a5gmscommonlibrary.models.TypedLocation
 import kotlinx.parcelize.Parcelize
 
@@ -38,5 +39,8 @@ data class ConsumptionReportingUnit(
     @JsonIgnore
     var mimeType: String? = null,
     @JsonIgnore
-    var finished: Boolean = false
+    var finished: Boolean = false,
+    // TS 26.510 V19.2.0 table 9.6.3.2-1: the network slice and the Data Network in which the media was consumed (0..1)
+    var sliceInfo: Snssai? = null,
+    var dataNetworkName: String? = null
 ) : Parcelable

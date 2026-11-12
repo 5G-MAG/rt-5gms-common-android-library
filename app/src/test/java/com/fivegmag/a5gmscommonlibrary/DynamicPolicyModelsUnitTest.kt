@@ -107,4 +107,18 @@ class DynamicPolicyModelsUnitTest {
         assertEquals(7, filter.flowLabel)
         assertEquals(4294967295L, filter.securityParametersIndex)
     }
+
+    // TS 26.510 V19.2.0 tables 9.3.3.1-1 and 9.4.3.1-1: location (TypedLocation), 0..1
+    @Test
+    fun theLocationOfTheUeIsWrittenWhenGivenAndLeftOutOtherwise() {
+        val location = com.fivegmag.a5gmscommonlibrary.models.TypedLocation(com.fivegmag.a5gmscommonlibrary.models.CellIdentifierType.NCGI, "00101123")
+        val flow = com.fivegmag.a5gmscommonlibrary.models.ApplicationFlowDescription("2_TUPLE")
+        val policy = DynamicPolicy("s1", "pt1", arrayListOf(), location = location)
+        val session = NetworkAssistanceSession("s1", flow, location = location)
+        for (json in listOf(gson.toJson(policy), gson.toJson(session))) {
+            assertTrue(json, json.contains("\"location\":{\"locationIdentifierType\":\"NCGI\",\"location\":\"00101123\"}"))
+        }
+        assertFalse(gson.toJson(DynamicPolicy("s1", "pt1", arrayListOf())).contains("location"))
+        assertFalse(gson.toJson(NetworkAssistanceSession("s1", flow)).contains("location"))
+    }
 }
