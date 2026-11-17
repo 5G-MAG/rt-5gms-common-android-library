@@ -133,6 +133,11 @@ object SessionHandlerBundleKeys {
     // LAUNCH_SERVICE_URL: the 3GPP Service URL (TS 26.510 V19.2.0 clause 6.2)
     const val SERVICE_URL = "serviceUrl"
 
+    // The 3GPP Service URL requested by an intent (TS 26.512 V19.3.0 clause 4.8.3.1): this extra of the ACTION_VIEW intent is the Messenger that the
+    // invoking application registered with REGISTER_CLIENT, which names its media delivery session context; without it the invoker is anonymous.
+    // The HTTP status (clause 4.8.3.4) is the extra HTTP_RESPONSE_CODE of the activity result.
+    const val LAUNCH_CLIENT_MESSENGER = "launchClientMessenger"
+
     // Every message of a Media Stream Handler instance carries the identifier of the instance: an application may run several
     // instances, one per media delivery session (TS 26.510 V19.2.0 clause 11.2.2.1 creates a new media delivery session on each call)
     const val CLIENT_INSTANCE_ID = "clientInstanceId"
