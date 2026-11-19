@@ -361,6 +361,25 @@ object ClientDataReportingModes {
 object MetricReportingSchemes {
     const val FIVE_G_MAG_EXOPLAYER_COMBINED_PLAYBACK_STATS = "urn:5gmag:exoplayer:combined"
     const val THREE_GPP_DASH_METRIC_REPORTING = "urn:3GPP:ns:PSS:DASH:QM10"
+
+    // TS 26.512 V19.3.0 clauses 4.7.5 and 7.8.1 name the scheme of the virtual reality metrics only as "the metrics scheme specified in clause 9.3 of TS 26.118";
+    // the one identifier that the text ties to it is the name space of its controlled vocabulary (clause E.2.2), which is also the target namespace of
+    // its report schema (TS 26.118 V19.0.0 clause 9.4.3). It is taken as the scheme identifier, as the vocabulary of QM10 is (clause E.2.1)
+    const val THREE_GPP_VR_METRIC_REPORTING = VrMetrics.NAMESPACE
+}
+
+// TS 26.118 V19.0.0 clause 9.3: the virtual reality metrics, with the term identifiers of TS 26.512 V19.3.0 clause E.2.2 (the key names of clause 9.3)
+object VrMetrics {
+    const val NAMESPACE = "urn:3gpp:metadata:2020:VR:metrics"
+    const val COMP_QUAL_LATENCY = "$NAMESPACE#CompQualLatency"
+    const val RENDERED_VIEWPORTS = "$NAMESPACE#RenderedViewports"
+    const val VR_DEVICE_INFORMATION = "$NAMESPACE#VrDeviceInformation"
+
+    // the key names as a Metrics element of a manifest lists them (clause 9.4.1: the metrics of clause 9.3 join those of TS 26.247 clause 10.4)
+    val KEYS: Set<String> = setOf("CompQualLatency", "RenderedViewports", "VrDeviceInformation")
+
+    // clause 9.4.2: "the element vrMetricSchemaVersion shall be set to 1"
+    const val SCHEMA_VERSION = 1
 }
 
 // The term identifiers of TS 26.512 V19.3.0 clause E.2.1 are the key names of TS 26.247 clause 10.2
@@ -376,6 +395,12 @@ object Metrics {
 }
 
 object XmlSchemaStrings {
+    // TS 26.118 V19.0.0 clause 9.4.3
+    object THREE_GPP_METADATA_2020_VR_METRICS {
+        const val SCHEMA = VrMetrics.NAMESPACE
+        const val TYPE = "VrQoeReportType"
+    }
+
     object THREE_GPP_METADATA_2017_HSD_RECEPTION_REPORT {
         const val SCHEMA = "urn:3gpp:metadata:2017:HSD:receptionreport"
         const val LOCATION = "DASH-QoE-Report.xsd"

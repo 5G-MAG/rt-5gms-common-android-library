@@ -9,6 +9,7 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 
 package com.fivegmag.a5gmscommonlibrary.qoeMetricsReporting
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty
@@ -47,4 +48,9 @@ data class ReceptionReport(
 
     @field:JacksonXmlProperty(isAttribute = true, localName = "xmlns:sup")
     var sup: String? = null,
+
+    // the name space of the virtual reality metrics (TS 26.118 V19.0.0 clause 9.4.3), declared when the report carries them
+    @field:JsonInclude(JsonInclude.Include.NON_NULL)
+    @field:JacksonXmlProperty(isAttribute = true, localName = "xmlns:vr")
+    var vr: String? = null,
 )
