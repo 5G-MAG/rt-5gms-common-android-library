@@ -9,9 +9,10 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 
 package com.fivegmag.a5gmscommonlibrary.helpers
 
+// the names of the Media Player dynamic status information of TS 26.512 V19.3.0 table 13.2.6-1
 object StatusInformation {
-    const val AVERAGE_THROUGHPUT = "AverageThroughput"
-    const val BUFFER_LENGTH = "BufferLength"
+    const val AVERAGE_THROUGHPUT = "averageThroughput"
+    const val BUFFER_LENGTH = "bufferLength"
     const val LIVE_LATENCY = "liveLatency"
 }
 

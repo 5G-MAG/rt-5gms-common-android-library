@@ -5,6 +5,7 @@ import com.fivegmag.a5gmscommonlibrary.helpers.SessionHandlerBundleKeys
 import com.fivegmag.a5gmscommonlibrary.helpers.SessionHandlerEvents
 import com.fivegmag.a5gmscommonlibrary.helpers.SessionHandlerMessageTypes
 import com.fivegmag.a5gmscommonlibrary.helpers.SessionHandlingStates
+import com.fivegmag.a5gmscommonlibrary.helpers.StatusInformation
 import com.fivegmag.a5gmscommonlibrary.helpers.UserAgentTokens
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -101,6 +102,14 @@ class SessionHandlerApiConstantsUnitTest {
         assertEquals("capabilities", SessionHandlerBundleKeys.CAPABILITIES)
         assertEquals(45, SessionHandlerMessageTypes.GET_PLAYER_CAPABILITIES)
         assertEquals(46, SessionHandlerMessageTypes.GET_PLAYER_CAPABILITIES_REPLY)
+    }
+
+    // TS 26.512 V19.3.0 table 13.2.6-1: the status information is named averageThroughput, bufferLength and liveLatency
+    @Test
+    fun theStatusInformationIsNamedAsInTable13_2_6_1() {
+        assertEquals("averageThroughput", StatusInformation.AVERAGE_THROUGHPUT)
+        assertEquals("bufferLength", StatusInformation.BUFFER_LENGTH)
+        assertEquals("liveLatency", StatusInformation.LIVE_LATENCY)
     }
 
     // TS 26.512 V19.3.0 table 13.2.5-1: the notification of a change of the Service Operation Point has a message of its own
