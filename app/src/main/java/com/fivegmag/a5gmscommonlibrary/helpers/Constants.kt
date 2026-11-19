@@ -11,9 +11,46 @@ package com.fivegmag.a5gmscommonlibrary.helpers
 
 // the names of the Media Player dynamic status information of TS 26.512 V19.3.0 table 13.2.6-1
 object StatusInformation {
+    const val STATE = "state"
     const val AVERAGE_THROUGHPUT = "averageThroughput"
     const val BUFFER_LENGTH = "bufferLength"
     const val LIVE_LATENCY = "liveLatency"
+    const val MEDIA_TIME = "mediaTime"
+    const val PLAYBACK_RATE = "playbackRate"
+}
+
+// the states of the Media Player of TS 26.512 V19.3.0 table 13.2.2-1
+object MediaPlayerStates {
+    const val IDLE = "IDLE"
+    const val INITIALIZED = "INITIALIZED"
+    const val READY = "READY"
+    const val PRELOADED = "PRELOADED"
+    const val PLAYING = "PLAYING"
+    const val DOWNLOADING = "DOWNLOADING"
+    const val PAUSED = "PAUSED"
+}
+
+// the notification events of the Media Player that the library gives (TS 26.512 V19.3.0 table 13.2.5-1)
+object MediaPlayerNotificationEvents {
+    const val CAN_PLAY = "CAN_PLAY"
+    const val MANIFEST_LOADED = "MANIFEST_LOADED"
+    const val PLAYBACK_ENDED = "PLAYBACK_ENDED"
+    const val PLAYBACK_ERROR = "PLAYBACK_ERROR"
+    const val PLAYBACK_PAUSED = "PLAYBACK_PAUSED"
+    const val PLAYBACK_PLAYING = "PLAYBACK_PLAYING"
+    const val PLAYBACK_SEEKED = "PLAYBACK_SEEKED"
+    const val PLAYBACK_SEEKING = "PLAYBACK_SEEKING"
+    const val PLAYBACK_STARTED = "PLAYBACK_STARTED"
+}
+
+// the error reasons of PLAYBACK_ERROR (TS 26.512 V19.3.0 table 13.2.5-2)
+object MediaPlayerErrorReasons {
+    const val ERROR_MEDIA_ENTRY_NOT_FOUND = "ERROR_MEDIA_ENTRY_NOT_FOUND"
+    const val ERROR_CONTENT_NOT_FOUND = "ERROR_CONTENT_NOT_FOUND"
+    const val ERROR_MEDIA_PLAYBACK = "ERROR_MEDIA_PLAYBACK"
+    const val ERROR_INVALID_MEDIA_ENTRY = "ERROR_INVALID_MEDIA_ENTRY"
+    const val ERROR_INACCESSIBLE_MEDIA_TIME = "ERROR_INACCESSIBLE_MEDIA_TIME"
+    const val ERROR_UNSUPPORTED_PROFILE = "ERROR_UNSUPPORTED_PROFILE"
 }
 
 object PlayerStates {

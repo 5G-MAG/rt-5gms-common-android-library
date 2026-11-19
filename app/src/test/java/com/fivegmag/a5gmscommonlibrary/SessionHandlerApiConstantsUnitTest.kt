@@ -1,6 +1,9 @@
 package com.fivegmag.a5gmscommonlibrary
 
 import com.fivegmag.a5gmscommonlibrary.helpers.MediaPlayerCapabilities
+import com.fivegmag.a5gmscommonlibrary.helpers.MediaPlayerErrorReasons
+import com.fivegmag.a5gmscommonlibrary.helpers.MediaPlayerNotificationEvents
+import com.fivegmag.a5gmscommonlibrary.helpers.MediaPlayerStates
 import com.fivegmag.a5gmscommonlibrary.helpers.SessionHandlerBundleKeys
 import com.fivegmag.a5gmscommonlibrary.helpers.SessionHandlerEvents
 import com.fivegmag.a5gmscommonlibrary.helpers.SessionHandlerMessageTypes
@@ -110,6 +113,34 @@ class SessionHandlerApiConstantsUnitTest {
         assertEquals("averageThroughput", StatusInformation.AVERAGE_THROUGHPUT)
         assertEquals("bufferLength", StatusInformation.BUFFER_LENGTH)
         assertEquals("liveLatency", StatusInformation.LIVE_LATENCY)
+        assertEquals("state", StatusInformation.STATE)
+        assertEquals("mediaTime", StatusInformation.MEDIA_TIME)
+        assertEquals("playbackRate", StatusInformation.PLAYBACK_RATE)
+    }
+
+    // TS 26.512 V19.3.0 table 13.2.2-1: the states of the Media Player
+    @Test
+    fun theMediaPlayerStatesAreThoseOfTable13_2_2_1() {
+        val states = MediaPlayerStates::class.java.declaredFields.filter { it.type == String::class.java }.map { it.get(null) as String }
+        assertEquals(setOf("IDLE", "INITIALIZED", "READY", "PRELOADED", "PLAYING", "DOWNLOADING", "PAUSED"), states.toSet())
+    }
+
+    // Tables 13.2.5-1 and 13.2.5-2: the names of the notification events and of the error reasons
+    @Test
+    fun theMediaPlayerNotificationsAndErrorReasonsAreNamedAsInTable13_2_5() {
+        val events = MediaPlayerNotificationEvents::class.java.declaredFields.filter { it.type == String::class.java }.map { it.get(null) as String }
+        assertEquals(
+            setOf("CAN_PLAY", "MANIFEST_LOADED", "PLAYBACK_ENDED", "PLAYBACK_ERROR", "PLAYBACK_PAUSED", "PLAYBACK_PLAYING", "PLAYBACK_SEEKED", "PLAYBACK_SEEKING", "PLAYBACK_STARTED"),
+            events.toSet()
+        )
+        val reasons = MediaPlayerErrorReasons::class.java.declaredFields.filter { it.type == String::class.java }.map { it.get(null) as String }
+        assertEquals(
+            setOf(
+                "ERROR_MEDIA_ENTRY_NOT_FOUND", "ERROR_CONTENT_NOT_FOUND", "ERROR_MEDIA_PLAYBACK", "ERROR_INVALID_MEDIA_ENTRY", "ERROR_INACCESSIBLE_MEDIA_TIME",
+                "ERROR_UNSUPPORTED_PROFILE"
+            ),
+            reasons.toSet()
+        )
     }
 
     // TS 26.512 V19.3.0 table 13.2.5-1: the notification of a change of the Service Operation Point has a message of its own
