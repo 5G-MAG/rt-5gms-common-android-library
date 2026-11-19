@@ -86,7 +86,11 @@ data class QualityLevelEntry(
     @field:JacksonXmlProperty(localName = "vr:height") val height: Long
 )
 
-/** Table 9.3.2-1 (ViewportDataType): the angles are in units of 2^-16 degrees */
+/**
+ * Table 9.3.2-1 (ViewportDataType): the angles are in units of 2^-16 degrees. The angles are signed: the table allows a centre azimuth and tilt from
+ * -180 * 2^16 and a centre elevation from -90 * 2^16. Implementation choice, text and schema conflicting, see CR-052 (open item O-43): the schema of
+ * clause 9.4.3 types them xs:unsignedInt, which no negative value can have; the text of the table wins.
+ */
 @JsonPropertyOrder("centreAzimuth", "centreElevation", "centreTilt", "azimuthRange", "elevationRange")
 data class ViewportData(
     @field:JacksonXmlProperty(localName = "vr:centreAzimuth") val centreAzimuth: Long,

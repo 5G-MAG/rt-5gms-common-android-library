@@ -1,6 +1,7 @@
 package com.fivegmag.a5gmscommonlibrary
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper
+import com.fivegmag.a5gmscommonlibrary.helpers.CmcdSchemes
 import com.fivegmag.a5gmscommonlibrary.helpers.MetricReportingSchemes
 import com.fivegmag.a5gmscommonlibrary.helpers.VrMetrics
 import com.fivegmag.a5gmscommonlibrary.qoeMetricsReporting.CompQualLatencyEntry
@@ -70,5 +71,24 @@ class VrMetricsUnitTest {
         )
         assertTrue(vr, vr.contains("xsi:type=\"vr:VrQoeReportType\""))
         assertTrue(vr, vr.contains("<vr:vrMetricSchemaVersion>1</vr:vrMetricSchemaVersion>"))
+    }
+
+    // Implementation choice, text and schema conflicting, see CR-052 (O-43): table 9.3.2-1 allows negative angles, so the type holds them and the
+    // report writes them as they are (the schema of clause 9.4.3 would reject them; the text wins)
+    @Test
+    fun theAnglesOfAViewportAreSignedAsTable932_1Allows() {
+        val viewport = ViewportData(-180L * 65536, -90L * 65536, -180L * 65536, 6553600, 3932160)
+        val xml = mapper.writeValueAsString(RenderedViewportEntry("PT2S", 1500, viewport))
+        assertTrue(xml, xml.contains(">-11796480</vr:centreAzimuth>"))
+        assertTrue(xml, xml.contains(">-5898240</vr:centreElevation>"))
+        assertTrue(xml, xml.contains(">-11796480</vr:centreTilt>"))
+    }
+
+    // Implementation choice, text silent, see CR-034 (O-46): the CMCD classes are those of version 1, the edition that TS 26.512 cites
+    @Test
+    fun theCmcdClassesAreThoseOfVersion1() {
+        assertTrue("pr" in CmcdSchemes.KEYS.getValue(CmcdSchemes.SESSION))
+        assertTrue("nrr" in CmcdSchemes.KEYS.getValue(CmcdSchemes.REQUEST))
+        assertFalse("pr" in CmcdSchemes.KEYS.getValue(CmcdSchemes.STATUS))
     }
 }

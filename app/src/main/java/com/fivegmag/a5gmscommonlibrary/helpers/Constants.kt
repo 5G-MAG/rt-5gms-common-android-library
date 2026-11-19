@@ -343,7 +343,10 @@ object CmcdSchemes {
     const val REQUEST = "urn:3gpp:5gms:metrics:common-media-client-data:request"
     const val STATUS = "urn:3gpp:5gms:metrics:common-media-client-data:status"
 
-    /** The keys of each class of CMCD version 1 (CTA-5004 table 2) */
+    /**
+     * The keys of each class of CMCD version 1 (CTA-5004 table 2). Implementation choice, text silent, see CR-034 (open item O-46): TS 26.512 cites
+     * CTA-5004 of September 2020, so the classes of version 1 are kept; in CTA-5004-B (version 3) pr is a key of the status class and nrr is gone.
+     */
     val KEYS: Map<String, Set<String>> = mapOf(
         SESSION to setOf("cid", "pr", "sf", "sid", "st", "v"),
         OBJECT to setOf("br", "d", "ot", "tb"),
@@ -364,7 +367,8 @@ object MetricReportingSchemes {
 
     // TS 26.512 V19.3.0 clauses 4.7.5 and 7.8.1 name the scheme of the virtual reality metrics only as "the metrics scheme specified in clause 9.3 of TS 26.118";
     // the one identifier that the text ties to it is the name space of its controlled vocabulary (clause E.2.2), which is also the target namespace of
-    // its report schema (TS 26.118 V19.0.0 clause 9.4.3). It is taken as the scheme identifier, as the vocabulary of QM10 is (clause E.2.1)
+    // its report schema (TS 26.118 V19.0.0 clause 9.4.3). It is taken as the scheme identifier, as the vocabulary of QM10 is (clause E.2.1):
+    // implementation choice, text silent, see CR-037 (open item O-39)
     const val THREE_GPP_VR_METRIC_REPORTING = VrMetrics.NAMESPACE
 }
 
