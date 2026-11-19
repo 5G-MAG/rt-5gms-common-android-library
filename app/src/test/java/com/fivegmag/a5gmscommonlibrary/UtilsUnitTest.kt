@@ -114,5 +114,34 @@ class UtilsUnitTest {
         assertEquals("java.lang.String", uuid.javaClass.name)
     }
 
+    // the Z of a DateTime is UTC: the value must not follow the time zone of the device
+    @Test
+    fun formatDateToOpenAPIFormatIsUtcInEveryTimeZone() {
+        val saved = java.util.TimeZone.getDefault()
+        try {
+            val instant = java.util.Date(1795082400000L) // 2026-11-19T10:00:00Z
+            for (zone in listOf("Europe/Zurich", "America/Los_Angeles", "Asia/Kolkata", "UTC")) {
+                java.util.TimeZone.setDefault(java.util.TimeZone.getTimeZone(zone))
+                assertEquals(zone, "2026-11-19T10:00:00Z", Utils().formatDateToOpenAPIFormat(instant))
+            }
+        } finally {
+            java.util.TimeZone.setDefault(saved)
+        }
+    }
 
+    // the consumption reporting units use the difference of two such values, which is parsed as UTC
+    @Test
+    fun formatDateToOpenAPIFormatRoundTripsThroughInstant() {
+        val saved = java.util.TimeZone.getDefault()
+        try {
+            java.util.TimeZone.setDefault(java.util.TimeZone.getTimeZone("America/Los_Angeles"))
+            val utils = Utils()
+            val a = utils.formatDateToOpenAPIFormat(java.util.Date(1795082400000L))
+            val b = utils.formatDateToOpenAPIFormat(java.util.Date(1795082407000L))
+            assertEquals(7L, utils.calculateTimestampDifferenceInSeconds(a, b))
+            assertEquals(1795082400000L, java.time.Instant.parse(a).toEpochMilli())
+        } finally {
+            java.util.TimeZone.setDefault(saved)
+        }
+    }
 }

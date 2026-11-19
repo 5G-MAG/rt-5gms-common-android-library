@@ -54,8 +54,11 @@ class Utils {
         return uuid.toString()
     }
 
+    // DateTime of the OpenAPI files is RFC 3339 (TS 29.571 clause 5.2.2): the literal Z means UTC, so the date is written in UTC whatever
+    // time zone and language the device is set to
     fun formatDateToOpenAPIFormat(date: Date): String {
-        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ROOT)
+        format.timeZone = TimeZone.getTimeZone("UTC")
         return format.format(date)
     }
 
