@@ -41,6 +41,7 @@ object MediaPlayerNotificationEvents {
     const val PLAYBACK_SEEKED = "PLAYBACK_SEEKED"
     const val PLAYBACK_SEEKING = "PLAYBACK_SEEKING"
     const val PLAYBACK_STARTED = "PLAYBACK_STARTED"
+    const val PLAYBACK_WAITING = "PLAYBACK_WAITING"
 }
 
 // the error reasons of PLAYBACK_ERROR (TS 26.512 V19.3.0 table 13.2.5-2)

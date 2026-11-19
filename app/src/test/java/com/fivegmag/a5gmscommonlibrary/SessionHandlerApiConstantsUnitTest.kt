@@ -130,7 +130,7 @@ class SessionHandlerApiConstantsUnitTest {
     fun theMediaPlayerNotificationsAndErrorReasonsAreNamedAsInTable13_2_5() {
         val events = MediaPlayerNotificationEvents::class.java.declaredFields.filter { it.type == String::class.java }.map { it.get(null) as String }
         assertEquals(
-            setOf("CAN_PLAY", "MANIFEST_LOADED", "PLAYBACK_ENDED", "PLAYBACK_ERROR", "PLAYBACK_PAUSED", "PLAYBACK_PLAYING", "PLAYBACK_SEEKED", "PLAYBACK_SEEKING", "PLAYBACK_STARTED"),
+            setOf("CAN_PLAY", "MANIFEST_LOADED", "PLAYBACK_ENDED", "PLAYBACK_ERROR", "PLAYBACK_PAUSED", "PLAYBACK_PLAYING", "PLAYBACK_SEEKED", "PLAYBACK_SEEKING", "PLAYBACK_STARTED", "PLAYBACK_WAITING"),
             events.toSet()
         )
         val reasons = MediaPlayerErrorReasons::class.java.declaredFields.filter { it.type == String::class.java }.map { it.get(null) as String }
