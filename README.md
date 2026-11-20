@@ -94,13 +94,13 @@ dependencyResolutionManagement {
 
 #### 2. Include the 5GMS Common Library in your module gradle file
 
-The example uses `1.3.0`, the version this repository publishes (`app/build.gradle`). Replace it
+The example uses `2.0.0`, the version this repository publishes (`app/build.gradle`). Replace it
 with the version you are using.
 
 ````
 dependencies {
     // 5GMAG
-    implementation 'com.fivegmag:a5gmscommonlibrary:1.3.0'
+    implementation 'com.fivegmag:a5gmscommonlibrary:2.0.0'
 }
 ````
 
