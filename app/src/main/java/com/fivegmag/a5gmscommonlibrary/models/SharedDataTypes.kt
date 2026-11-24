@@ -13,10 +13,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class TypedLocation(
-    val locationIdentifierType: CellIdentifierType,
-    val location: String
-) : Parcelable
+data class TypedLocation(val locationIdentifierType: CellIdentifierType, val location: String) : Parcelable
 
 @Parcelize
 data class EndpointAddress(
@@ -32,7 +29,4 @@ enum class CellIdentifierType : Parcelable {
     ECGI,
     NCGI
 }
-data class HostInfo(
-    val type: String,
-    val host: String
-)
+data class HostInfo(val type: String, val host: String)

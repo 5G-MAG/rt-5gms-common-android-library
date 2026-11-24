@@ -13,7 +13,5 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class QoeMetricsResponse(
-    var metricsString: String = "",
-    var metricsReportingConfigurationId: String? = ""
-) : Parcelable
+data class QoeMetricsResponse(var metricsString: String = "", var metricsReportingConfigurationId: String? = "") :
+    Parcelable

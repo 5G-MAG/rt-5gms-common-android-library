@@ -10,27 +10,25 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 package com.fivegmag.a5gmscommonlibrary.helpers
 
 import android.content.res.AssetManager
-import java.util.Properties
 import com.fivegmag.a5gmscommonlibrary.models.EndpointAddress
 import com.fivegmag.a5gmscommonlibrary.models.HostInfo
-import java.text.SimpleDateFormat
-import java.time.Duration
-import java.util.Date
-import java.util.Random
-import java.util.TimeZone
-import okhttp3.Headers
 import java.io.InputStream
 import java.net.NetworkInterface
 import java.net.URL
+import java.text.SimpleDateFormat
+import java.time.Duration
 import java.time.Instant
+import java.util.Date
 import java.util.Locale
+import java.util.Properties
+import java.util.Random
+import java.util.TimeZone
 import java.util.UUID
+import okhttp3.Headers
 
 class Utils {
 
-    fun getCurrentTimestamp(): Long {
-        return System.currentTimeMillis()
-    }
+    fun getCurrentTimestamp(): Long = System.currentTimeMillis()
 
     fun convertTimestampToXsDateTime(timestampInMillis: Long): String {
         // Create a Date object using the provided timestamp
@@ -85,7 +83,7 @@ class Utils {
 
         // Construct the ISO 8601 period string
         return "P" + years + "Y" + days + "D" +
-                "T" + hours + "H" + minutes + "M" + seconds + "S"
+            "T" + hours + "H" + minutes + "M" + seconds + "S"
     }
 
     fun generateRandomFloat(): Float {
@@ -93,18 +91,13 @@ class Utils {
         return random.nextFloat() * 100.0f
     }
 
-    fun addTrailingSlashIfNeeded(input: String): String {
-        return if (!input.endsWith("/")) {
-            "$input/"
-        } else {
-            input
-        }
+    fun addTrailingSlashIfNeeded(input: String): String = if (!input.endsWith("/")) {
+        "$input/"
+    } else {
+        input
     }
 
-    fun hasResponseChanged(
-        headers: Headers,
-        previousResponseHeaders: Headers?
-    ): Boolean {
+    fun hasResponseChanged(headers: Headers, previousResponseHeaders: Headers?): Boolean {
         if (previousResponseHeaders == null) {
             return true
         }
@@ -118,9 +111,8 @@ class Utils {
         }
     }
 
-    private fun hasHeaderChanged(headerA: String?, headerB: String?): Boolean {
-        return headerA == null || headerB == null || headerA != headerB
-    }
+    private fun hasHeaderChanged(headerA: String?, headerB: String?): Boolean =
+        headerA == null || headerB == null || headerA != headerB
 
     fun getIpAddress(ipVer: Int): String? {
         val interfaces = NetworkInterface.getNetworkInterfaces()
@@ -183,9 +175,7 @@ class Utils {
         }
     }
 
-    fun getEndpointAddressByRequestUrl(
-        requestUrl: String
-    ): EndpointAddress? {
+    fun getEndpointAddressByRequestUrl(requestUrl: String): EndpointAddress? {
         try {
             val hostInfo = getHostInfo(requestUrl)
             val port = getPort(requestUrl)
@@ -200,11 +190,9 @@ class Utils {
             }
 
             return null
-
         } catch (e: Exception) {
             return null
         }
-
     }
 
     fun loadConfiguration(assetManager: AssetManager, file: String): Properties {
@@ -219,5 +207,4 @@ class Utils {
 
         return configProperties
     }
-
 }

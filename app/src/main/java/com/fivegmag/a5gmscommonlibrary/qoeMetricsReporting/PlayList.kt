@@ -118,26 +118,26 @@ data class PlayListTraceEntry(
 /**
  * Start type for PlayList entries per TS 26.247 clause 10.2.7
  * Indicates how playback was initiated.
- * 
+ *
  * Per Rel-19 schema (TS 26.247 V19.0.0), these exact string values must be used in XML.
  */
 enum class StartType(val value: String) {
     /** New playback session started */
     @com.fasterxml.jackson.annotation.JsonProperty("NewPlayoutRequest")
     NewPlayoutRequest("NewPlayoutRequest"),
-    
+
     /** Playback resumed after pause */
     @com.fasterxml.jackson.annotation.JsonProperty("Resume")
     Resume("Resume"),
-    
+
     /** User-initiated action (e.g., seek) */
     @com.fasterxml.jackson.annotation.JsonProperty("OtherUserRequest")
     OtherUserRequest("OtherUserRequest"),
-    
+
     /** Start of metrics collection period */
     @com.fasterxml.jackson.annotation.JsonProperty("StartOfMetricsCollectionPeriod")
     StartOfMetricsCollectionPeriod("StartOfMetricsCollectionPeriod");
-    
+
     @com.fasterxml.jackson.annotation.JsonValue
     override fun toString(): String = value
 }
@@ -145,42 +145,42 @@ enum class StartType(val value: String) {
 /**
  * Stop reason for PlayList trace entries per TS 26.247 clause 10.2.7
  * Indicates why playback stopped or paused.
- * 
+ *
  * Per Rel-19 schema (TS 26.247 V19.0.0), these exact string values must be used in XML.
  */
 enum class StopReasonType(val value: String) {
     /** Representation switch occurred */
     @com.fasterxml.jackson.annotation.JsonProperty("RepresentationSwitch")
     RepresentationSwitch("RepresentationSwitch"),
-    
+
     /** Rebuffering/stalling occurred */
     @com.fasterxml.jackson.annotation.JsonProperty("Rebuffering")
     Rebuffering("Rebuffering"),
-    
+
     /** User initiated pause or stop */
     @com.fasterxml.jackson.annotation.JsonProperty("UserRequest")
     UserRequest("UserRequest"),
-    
+
     /** End of Period in MPD */
     @com.fasterxml.jackson.annotation.JsonProperty("EndOfPeriod")
     EndOfPeriod("EndOfPeriod"),
-    
+
     /** End of content reached */
     @com.fasterxml.jackson.annotation.JsonProperty("EndOfContent")
     EndOfContent("EndOfContent"),
-    
+
     /** End of metrics collection period */
     @com.fasterxml.jackson.annotation.JsonProperty("EndOfMetricsCollectionPeriod")
     EndOfMetricsCollectionPeriod("EndOfMetricsCollectionPeriod"),
-    
+
     /** Playback failure/error */
     @com.fasterxml.jackson.annotation.JsonProperty("Failure")
     Failure("Failure"),
-    
+
     /** Other reason (use stopReasonOther for details) */
     @com.fasterxml.jackson.annotation.JsonProperty("Other")
     Other("Other");
-    
+
     @com.fasterxml.jackson.annotation.JsonValue
     override fun toString(): String = value
 }

@@ -13,7 +13,4 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class M8Model(
-    var m5BaseUrl: String,
-    var serviceList: ArrayList<ServiceListEntry>
-) : Parcelable
+data class M8Model(var m5BaseUrl: String, var serviceList: ArrayList<ServiceListEntry>) : Parcelable

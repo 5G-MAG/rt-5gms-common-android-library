@@ -46,5 +46,5 @@ data class ReceptionReport(
     var sv: String? = null,
 
     @field:JacksonXmlProperty(isAttribute = true, localName = "xmlns:sup")
-    var sup: String? = null,
+    var sup: String? = null
 )

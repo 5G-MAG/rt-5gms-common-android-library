@@ -13,15 +13,10 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ServiceListEntry(
-    val provisioningSessionId : String,
+    val provisioningSessionId: String,
     val name: String,
     val entryPoints: ArrayList<EntryPoint>?
 ) : Parcelable
 
 @Parcelize
-data class EntryPoint(
-    val locator: String,
-    val contentType: String,
-    val profiles: ArrayList<String>?
-) : Parcelable
-
+data class EntryPoint(val locator: String, val contentType: String, val profiles: ArrayList<String>?) : Parcelable

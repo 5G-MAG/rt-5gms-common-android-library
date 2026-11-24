@@ -49,8 +49,6 @@ data class QoeReport(
     @field:JacksonXmlProperty(localName = "PlayoutDelayforMediaStartup")
     var playoutDelayForMediaStartup: ArrayList<PlayoutDelayforMediaStartup>? = null,
 
-
-
     @field:JacksonXmlElementWrapper(localName = "QoeMetric")
     @field:JacksonXmlProperty(localName = "AvgThroughput")
     var avgThroughputList: ArrayList<AvgThroughput>? = null,
@@ -58,12 +56,11 @@ data class QoeReport(
     @field:JacksonXmlElementWrapper(localName = "QoeMetric")
     @field:JacksonXmlProperty(localName = "PlayList")
     var playList: ArrayList<PlayList>? = null,
-    
-    
+
     @field:JacksonXmlProperty(localName = "sup:supplementQoEMetric")
     @field:JacksonXmlElementWrapper(useWrapping = false)
     var supplementQoEMetric: ArrayList<SupplementQoeMetric>? = null,
-    
+
     @field:JacksonXmlProperty(localName = "sv:delimiter")
     @field:JacksonXmlElementWrapper(useWrapping = false)
     var delimiters: ArrayList<Delimiter>? = null,
@@ -78,5 +75,5 @@ data class QoeReport(
     var reportPeriod: Int? = 0,
 
     @field:JacksonXmlProperty(isAttribute = true)
-    var recordingSessionId: String? = "",
+    var recordingSessionId: String? = ""
 )

@@ -34,5 +34,5 @@ data class MpdInfo(
     @field:JacksonXmlProperty(isAttribute = true)
     var width: Int? = null,
     @field:JacksonXmlProperty(isAttribute = true)
-    var height: Int? = null,
+    var height: Int? = null
 )

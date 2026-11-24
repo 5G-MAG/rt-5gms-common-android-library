@@ -3,16 +3,15 @@ package com.fivegmag.a5gmscommonlibrary
 import com.fivegmag.a5gmscommonlibrary.models.EntryPoint
 import com.fivegmag.a5gmscommonlibrary.models.M8Model
 import com.fivegmag.a5gmscommonlibrary.models.ServiceListEntry
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 class M8ModelUnitTest {
 
     @Test
     fun createModel() {
         var profiles = ArrayList<String>()
-        profiles.add("profile1");
+        profiles.add("profile1")
 
         var firstEntryPoint = EntryPoint("locator1", "contentType1", profiles)
         var firstEntryPointList = ArrayList<EntryPoint>()
