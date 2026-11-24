@@ -2,8 +2,10 @@ package com.fivegmag.a5gmscommonlibrary
 
 import com.fivegmag.a5gmscommonlibrary.helpers.HostInfoTypes
 import com.fivegmag.a5gmscommonlibrary.helpers.Utils
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Test
-import org.junit.Assert.*
 
 class UtilsUnitTest {
 
@@ -66,6 +68,7 @@ class UtilsUnitTest {
             assertEquals(HostInfoTypes.DOMAIN_NAME, hostInfo.type)
         }
     }
+
     @Test
     fun getEndpointAddressByRequestUrlDomain() {
         val url = "http://dash.akamaized.net:8888/akamai/bbb_30fps/bbb_30fps.mpd"
@@ -81,6 +84,7 @@ class UtilsUnitTest {
             assertNull(endpointAddress.ipv6Addr)
         }
     }
+
     @Test
     fun getEndpointAddressByRequestUrlIp4() {
         val url = "http://192.168.1.1:8888/akamai/bbb_30fps/bbb_30fps.mpd"
@@ -96,6 +100,7 @@ class UtilsUnitTest {
             assertNull(endpointAddress.ipv6Addr)
         }
     }
+
     @Test
     fun getEndpointAddressByRequestUrlI6() {
         val url = "http://[1080:0:0:0:8:800:200C:417A]:8888/akamai/bbb_30fps/bbb_30fps.mpd"
@@ -118,6 +123,4 @@ class UtilsUnitTest {
         val uuid = utils.generateUuidToHexBinary()
         assertEquals("java.lang.String", uuid.javaClass.name)
     }
-
-
 }

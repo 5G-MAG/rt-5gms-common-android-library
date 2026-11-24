@@ -17,7 +17,7 @@ data class AvgThroughput(
     @field:JacksonXmlProperty(isAttribute = true)
     val activityTime: Long,
     @field:JacksonXmlProperty(isAttribute = true)
-    val t : String,
+    val t: String,
     @field:JacksonXmlProperty(isAttribute = true)
     val duration: Long,
     @field:JacksonXmlProperty(isAttribute = true)

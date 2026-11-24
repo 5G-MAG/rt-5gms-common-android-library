@@ -16,31 +16,15 @@ import androidx.media3.exoplayer.analytics.AnalyticsListener.EventTime
 import androidx.media3.exoplayer.source.LoadEventInfo
 import androidx.media3.exoplayer.source.MediaLoadData
 
-class DownstreamFormatChangedEvent(
-    val eventTime: EventTime,
-    val mediaLoadData: MediaLoadData
-)
+class DownstreamFormatChangedEvent(val eventTime: EventTime, val mediaLoadData: MediaLoadData)
 
-class PlaybackStateChangedEvent(
-    val eventTime: EventTime,
-    val playbackState: String
-)
+class PlaybackStateChangedEvent(val eventTime: EventTime, val playbackState: String)
 
-class LoadStartedEvent(
-    val eventTime: EventTime,
-    val loadEventInfo: LoadEventInfo,
-    val mediaLoadData: MediaLoadData
-)
+class LoadStartedEvent(val eventTime: EventTime, val loadEventInfo: LoadEventInfo, val mediaLoadData: MediaLoadData)
 
-class LoadCompletedEvent(
-    val eventTime: EventTime,
-    val loadEventInfo: LoadEventInfo,
-    val mediaLoadData: MediaLoadData
-)
+class LoadCompletedEvent(val eventTime: EventTime, val loadEventInfo: LoadEventInfo, val mediaLoadData: MediaLoadData)
 
-class CellInfoUpdatedEvent(
-    val cellInfoList: MutableList<CellInfo>
-)
+class CellInfoUpdatedEvent(val cellInfoList: MutableList<CellInfo>)
 
 /**
  * Event fired when the first media segment fetch begins
@@ -66,12 +50,7 @@ class FirstFrameRenderedEvent(
  * Event fired when the video display size changes (e.g., orientation change, fullscreen toggle)
  * Used for Device Information QoE metric per TS 26.247 clause 10.2.10
  */
-class VideoSizeChangedEvent(
-    val videoWidth: Int,
-    val videoHeight: Int,
-    val screenWidth: Int,
-    val screenHeight: Int
-)
+class VideoSizeChangedEvent(val videoWidth: Int, val videoHeight: Int, val screenWidth: Int, val screenHeight: Int)
 
 /**
  * Event fired when a seek operation occurs
@@ -89,10 +68,7 @@ class SeekEvent(
  * Event fired when playback speed changes
  * Used for PlayList QoE metric per TS 26.247 clause 10.2.6
  */
-class PlaybackSpeedChangedEvent(
-    val eventTime: EventTime,
-    val playbackSpeed: Float
-)
+class PlaybackSpeedChangedEvent(val eventTime: EventTime, val playbackSpeed: Float)
 
 /**
  * Event fired when the user triggers playback start (e.g., clicks play button)
@@ -109,6 +85,4 @@ class PlaybackStartTriggerEvent(
  * Used for AvgThroughput QoE metric per TS 26.247 clause 10.2.4.
  * Emitted incrementally by the TransferListener as data arrives.
  */
-class BytesTransferredEvent(
-    val bytesTransferred: Int
-)
+class BytesTransferredEvent(val bytesTransferred: Int)

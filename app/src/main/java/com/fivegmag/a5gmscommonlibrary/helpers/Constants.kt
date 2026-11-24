@@ -85,6 +85,7 @@ object Metrics {
 }
 
 object XmlSchemaStrings {
+    @Suppress("ktlint:standard:class-naming")
     object THREE_GPP_METADATA_2017_HSD_RECEPTION_REPORT {
         const val SCHEMA = "urn:3gpp:metadata:2017:HSD:receptionreport"
         const val LOCATION = "DASH-QoE-Report.xsd"
