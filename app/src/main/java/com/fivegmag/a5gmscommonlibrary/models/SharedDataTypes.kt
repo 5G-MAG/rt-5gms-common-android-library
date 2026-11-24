@@ -29,4 +29,5 @@ enum class CellIdentifierType : Parcelable {
     ECGI,
     NCGI
 }
+
 data class HostInfo(val type: String, val host: String)
