@@ -109,8 +109,8 @@ dependencies {
 ### Code style
 
 Kotlin code is checked with [ktlint](https://pinterest.github.io/ktlint/), using the rules in
-`.editorconfig`. The CI workflow runs the check on every pull request. To check and auto-fix
-locally, run:
+`.editorconfig`. The CI workflow runs the check on every pull request to `main` and `development`.
+To check and auto-fix locally, run:
 
 ````
 ./gradlew ktlintCheck

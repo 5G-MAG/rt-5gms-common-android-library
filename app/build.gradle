@@ -7,7 +7,6 @@ plugins {
 
 ktlint {
     version = '1.8.0'
-    android = true
 }
 
 android {
